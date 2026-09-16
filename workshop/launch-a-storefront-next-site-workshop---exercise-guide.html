@@ -83,7 +83,6 @@
     <a href="#ex-10" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 10: PDP Customization</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Optional / Take-Home</div>
     <a href="#ex-11" class="block px-3 py-2 rounded hover:bg-white/10 transition text-white/60">Ex 11: Page Designer</a>
-    <a href="#ex-12" class="block px-3 py-2 rounded hover:bg-white/10 transition text-white/60">Ex 12: Data-Fetching Route</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Reference</div>
     <a href="#quick-ref" class="block px-3 py-2 rounded hover:bg-white/10 transition">📖 Quick Reference Card</a>
     <a href="#appendix" class="block px-3 py-2 rounded hover:bg-white/10 transition">Appendix: GitHub Access</a>
@@ -153,7 +152,7 @@
 
   <div class="mt-4 bg-amber-50 border border-amber-200 rounded-lg p-4 text-sm">
     <strong class="text-amber-800">🏠 Optional Take-Home Exercises:</strong>
-    <span class="text-amber-700"> Exercise 11 (Page Designer Component) and Exercise 12 (Data-Fetching Route) are available at the end of this guide for self-paced learning after the workshop.</span>
+    <span class="text-amber-700"> Exercise 11 (Page Designer Component) is available at the end of this guide for self-paced learning after the workshop.</span>
   </div>
 
   <div class="mt-4 bg-sf-cloud rounded-lg p-4 text-sm">
@@ -191,6 +190,9 @@
       </tbody>
     </table>
   </div>
+
+  <p class="text-sm mb-2">Or check all three at once:</p>
+  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-6 overflow-x-auto">echo "Node: $(node -v)" &amp;&amp; echo "pnpm: $(pnpm -v)" &amp;&amp; echo "VS Code: $(code -v | head -1)"</pre>
 
   <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-4 mb-6 text-sm">
     <strong class="text-sf-blue">💡 Volta (Optional):</strong> Storefront Next uses Volta for Node.js version management. Volta automatically pins tool versions for each project. Install via <code class="bg-white px-1.5 py-0.5 rounded text-xs">curl https://get.volta.sh | bash</code> (macOS/Linux) or download from the <a href="https://volta.sh" class="text-sf-accent underline">Volta website</a> (Windows).
@@ -246,10 +248,30 @@ volta install pnpm</pre>
           <li>1. In your Salesforce org, go to <strong>Setup</strong></li>
           <li>2. Click <strong>Agentforce Vibes</strong> (appears above Developer Console)</li>
           <li>3. A browser-based VS Code environment launches — fully authenticated to your org</li>
-          <li>4. In the integrated terminal, install B2C skills:</li>
+          <li>4. The container doesn't ship with Node.js/pnpm ready for Storefront Next. In the integrated terminal, run:</li>
+        </ol>
+        <pre class="bg-gray-900 text-green-400 rounded-lg p-3 text-sm mt-2 overflow-x-auto">curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+
+unset NPM_CONFIG_PREFIX
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+command -v nvm
+nvm --version
+
+nvm install 24
+nvm use 24
+nvm alias default 24
+npm install --global pnpm@10.28.0</pre>
+        <p class="text-xs text-purple-700 mt-2"><code>unset NPM_CONFIG_PREFIX</code> matters — the container presets that variable for its built-in tooling, and nvm refuses to install or switch Node versions while it's set. The <code>command -v nvm</code> / <code>nvm --version</code> pair is just a checkpoint: if either comes back empty, stop and re-run the install before continuing. <code>pnpm@10.28.0</code> matches the version this project pins via Volta, so don't substitute "latest".</p>
+        <ol start="5" class="space-y-2 text-sm text-purple-900 mt-3">
+          <li>5. Verify with <code>node -v</code> (expect v24.x) and <code>pnpm -v</code> (expect 10.28.0), then install B2C skills:</li>
         </ol>
         <pre class="bg-gray-900 text-green-400 rounded-lg p-3 text-sm mt-2 overflow-x-auto">b2c setup skills b2c --ide agentforce-vibes</pre>
         <p class="text-xs text-purple-700 mt-2">Skills install to <code>.a4drules/skills/</code> in your project directory.</p>
+        <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3 text-sm">
+          <strong class="text-amber-800">⚠️ Note:</strong> This is a one-time setup per Vibes web IDE container. If you come back to a fresh session later and <code>node -v</code> shows nothing or an old version, re-run the block above.
+        </div>
       </div>
 
       <div class="bg-purple-50 rounded-lg p-4 mb-4">
@@ -475,19 +497,17 @@ volta install pnpm</pre>
   </div>
 
   <ol start="2" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>In Business Manager, navigate to <strong>Merchant Tools → MarketStreet → Site Locales</strong>. Check <strong>en_US</strong>. Click <strong>Apply</strong>.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>In Business Manager, go to <strong>Merchant Tools → MarketStreet → Search → Search Indexes</strong>. Click the <strong>Rebuild All</strong> button.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span><strong>Copy your downloaded <code>.env</code> file</strong> (from Exercise 4) into the root of your project folder, replacing the existing one.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Start the local development server:</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span><strong>Copy your downloaded <code>.env</code> file</strong> (from Exercise 4) into the root of your project folder, replacing the existing one.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Start the local development server:</span></li>
   </ol>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">pnpm dev</pre>
 
-  <ol start="6" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>Visit <a href="http://localhost:5173" class="text-sf-accent underline font-mono">http://localhost:5173</a> in your browser. You should see the MarketStreet storefront loading! 🎉</span></li>
+  <ol start="4" class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Visit <a href="http://localhost:5173" class="text-sf-accent underline font-mono">http://localhost:5173</a> in your browser. You should see the MarketStreet storefront loading! 🎉</span></li>
   </ol>
 
   <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6 text-sm">
-    <strong class="text-green-800">✅ Checkpoint:</strong> You should see the MarketStreet storefront with navigation (Women, Men, Kids), a hero carousel, and featured products. If you see a blank page or error, check your <code>.env</code> values and ensure the search index rebuild has completed.
+    <strong class="text-green-800">✅ Checkpoint:</strong> You should see the MarketStreet storefront with navigation (Women, Men, Kids), a hero carousel, and featured products. If you see a blank page or error, check your <code>.env</code> values.
   </div>
 </section>
 
@@ -1305,42 +1325,6 @@ export default function CustomPage({ loaderData }: Route.ComponentProps) {
       </div>
     </div>
   </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- EXERCISE 12: DATA-FETCHING ROUTE (OPTIONAL) -->
-<!-- ============================================================ -->
-<section id="ex-12" class="mb-16 page-break">
-  <div class="flex items-center gap-3 mb-2">
-    <span class="bg-gray-200 text-gray-700 text-xs font-semibold px-2.5 py-1 rounded-full">🏠 Optional Take-Home</span>
-  </div>
-  <h2 class="text-3xl font-bold text-gray-500 mb-4">Exercise 12: Create a New Data-Fetching Route</h2>
-
-  <div class="bg-gray-50 rounded-xl p-6 mb-6 border border-gray-200">
-    <h3 class="font-semibold text-gray-600 mb-2">Scenario</h3>
-    <p class="text-sm text-gray-500">Market Street wants a custom "Category Spotlight" landing page that can be linked from campaigns and email marketing using a direct URL with a query parameter. This teaches how to build a SCAPI-backed route from scratch.</p>
-    <h3 class="font-semibold text-gray-600 mt-4 mb-2">Goal</h3>
-    <p class="text-sm text-gray-500">Create a new <code>/category-spotlight</code> route that accepts an <code>?id=</code> query parameter, fetches category and product data server-side using SCAPI, and displays the results.</p>
-  </div>
-
-  <h3 class="text-lg font-semibold text-gray-600 mt-8 mb-3">Task 1: Review the Routing Convention</h3>
-  <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-gray-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Open <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/routes.ts</code> and verify it uses <code>flatRoutes()</code> — any file you add to <code>src/routes/</code> becomes a route automatically.</span></li>
-  </ol>
-
-  <h3 class="text-lg font-semibold text-gray-600 mt-8 mb-3">Task 2: Create the Route File</h3>
-  <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-gray-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>In <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/routes/</code>, create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">_app.category-spotlight.tsx</code></span></li>
-    <li class="flex gap-3"><span class="bg-gray-500 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Add the imports, loader function, and component (see the full exercise guide PDF for complete code).</span></li>
-  </ol>
-  <p class="text-sm mt-4 mb-4">The key concepts covered in this exercise:</p>
-  <ul class="space-y-2 text-sm ml-4">
-    <li>• <strong>Server-side data loading</strong> — the <code>loader</code> function runs on the server before the page renders</li>
-    <li>• <strong>SCAPI integration</strong> — using <code>fetchSearchProducts</code> to query Commerce Cloud APIs</li>
-    <li>• <strong>Query parameters</strong> — extracting <code>?id=</code> from the URL</li>
-    <li>• <strong>Type safety</strong> — using SDK schema types for compile-time checking</li>
-  </ul>
-  <p class="text-sm mt-4">Test it at: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">http://localhost:5173/marketstreet/en-US/category-spotlight?id=mens-bags</code></p>
 </section>
 
 <!-- ============================================================ -->
