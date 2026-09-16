@@ -1,0 +1,32 @@
+{
+    "name": "Promo Callout",
+    "description": "Custom component: PromoCalloutMetadata",
+    "group": "Content",
+    "arch_type": "headless",
+    "region_definitions": [],
+    "attribute_definition_groups": [
+        {
+            "id": "promoCallout",
+            "name": "Promo Callout",
+            "description": "Custom component: PromoCalloutMetadata",
+            "attribute_definitions": [
+                {
+                    "id": "message",
+                    "name": "Message",
+                    "type": "string",
+                    "required": true,
+                    "description": "Field: message"
+                },
+                {
+                    "id": "variant",
+                    "name": "Style",
+                    "type": "enum",
+                    "required": false,
+                    "description": "Field: variant",
+                    "values": ["default", "accent"],
+                    "default_value": "default"
+                }
+            ]
+        }
+    ]
+}

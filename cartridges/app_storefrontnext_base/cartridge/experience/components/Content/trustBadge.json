@@ -1,0 +1,30 @@
+{
+    "name": "Trust Badge",
+    "description": "Custom component: TrustBadgeMetadata",
+    "group": "Content",
+    "arch_type": "headless",
+    "region_definitions": [],
+    "attribute_definition_groups": [
+        {
+            "id": "trustBadge",
+            "name": "Trust Badge",
+            "description": "Custom component: TrustBadgeMetadata",
+            "attribute_definitions": [
+                {
+                    "id": "label",
+                    "name": "Label",
+                    "type": "string",
+                    "required": true,
+                    "description": "Field: label"
+                },
+                {
+                    "id": "iconName",
+                    "name": "Icon Name",
+                    "type": "string",
+                    "required": false,
+                    "description": "Field: iconName"
+                }
+            ]
+        }
+    ]
+}

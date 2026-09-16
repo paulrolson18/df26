@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dlx *)",
+      "Bash(mkdir -p .claude/skills)",
+      "Bash(mv df26/.claude/skills/sync-shadcn .claude/skills/)",
+      "Bash(rmdir df26/.claude/skills df26/.claude df26)",
+      "Bash(pnpm install *)",
+      "Bash(tee /tmp/sfnext-dev.log)",
+      "Bash(sleep 12 && cat /tmp/sfnext-dev.log)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -o /tmp/sfnext-home.html -w \"HTTP %{http_code}\\\\n\" http://localhost:5173/)",
+      "Read(//tmp/**)",
+      "Bash(jobs -l)",
+      "Bash(kill 46732 46753 46810)",
+      "Bash(sleep 10 && cat /tmp/sfnext-dev.log)",
+      "Bash(curl -s -o /tmp/sfnext-home2.html -w \"HTTP %{http_code}\\\\n\" -L http://localhost:5173/)"
+    ]
+  }
+}

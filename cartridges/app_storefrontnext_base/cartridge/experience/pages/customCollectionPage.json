@@ -1,0 +1,15 @@
+{
+    "name": "Custom Collection Page",
+    "description": "Demo page for Page Designer orchestration exercise",
+    "arch_type": "headless",
+    "region_definitions": [
+        {
+            "id": "promoZone",
+            "name": "Promo Zone",
+            "description": "Promotional callout area",
+            "max_components": 1
+        }
+    ],
+    "supported_aspect_types": [],
+    "route": "/:siteId/:localeId/custom-page"
+}
