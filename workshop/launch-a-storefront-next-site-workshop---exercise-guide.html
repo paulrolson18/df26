@@ -17,7 +17,7 @@
   --color-sf-gray: #706E6B;
   --color-sf-bg: #F3F3F3;
   --color-path-claude: #D97706;
-  --color-path-manual: #059669;
+  --color-path-vibes: #7C3AED;
 }
 </style>
 <style>
@@ -68,11 +68,11 @@
   <div class="p-4 space-y-1 text-sm">
     <a href="#agenda" class="block px-3 py-2 rounded hover:bg-white/10 transition">📋 Workshop Agenda</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Setup</div>
-    <a href="#ex-1" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 1: Software & AI Tools</a>
+    <a href="#ex-1" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 1: Prepare Your Environment</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Foundation</div>
     <a href="#ex-2" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 2: SN Introduction</a>
     <a href="#ex-3" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 3: Storefront Overview</a>
-    <a href="#ex-4" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 4: Local Setup</a>
+    <a href="#ex-4" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 4: Project Setup</a>
     <a href="#ex-5" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 5: Review Key Elements</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Hands-On</div>
     <a href="#ex-6" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 6: Update Storefront</a>
@@ -106,8 +106,8 @@
   <h1 class="text-5xl lg:text-6xl font-extrabold text-sf-blue leading-tight mb-4">Launch a Storefront Next<br>Site Workshop</h1>
   <p class="text-xl text-sf-gray mb-8">Dreamforce 2026 Workshop — B2C201</p>
   <div class="flex flex-wrap justify-center gap-3 text-sm">
+    <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full font-medium">✨ Agentforce Vibes Codebuilder</span>
     <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">🤖 Claude Code</span>
-    <span class="bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-medium">📝 Manual Steps</span>
   </div>
   <p class="text-sm text-sf-gray mt-6">Two paths — pick the one that fits your setup</p>
 </section>
@@ -153,7 +153,7 @@
 
   <div class="mt-4 bg-sf-cloud rounded-lg p-4 text-sm">
     <strong class="text-sf-blue">🛠 Your AI Tool Path:</strong>
-    <span class="text-sf-blue/80"> Throughout this guide, exercises with code changes offer two instruction paths — <span class="text-path-claude font-semibold">Claude Code</span> or <span class="text-path-manual font-semibold">Manual</span>. Pick whichever matches your setup and stick with it. Both reach the same result.</span>
+    <span class="text-sf-blue/80"> Throughout this guide, you'll give AI commands to make each change — whether you're working in <span class="text-path-vibes font-semibold">Agentforce Vibes Codebuilder</span> (Path A) or <span class="text-path-claude font-semibold">Claude Code</span> (Path B). Pick whichever matches your setup and stick with it. Both reach the same result.</span>
   </div>
 </section>
 
@@ -164,55 +164,55 @@
   <div class="flex items-center gap-3 mb-2">
     <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-1 rounded-full">Setup · 5 min</span>
   </div>
-  <h2 class="text-3xl font-bold text-sf-blue mb-4">Exercise 1: Install Third-Party Software and AI Tools</h2>
+  <h2 class="text-3xl font-bold text-sf-blue mb-4">Exercise 1: Prepare Your Environment</h2>
 
   <div class="bg-sf-cloud rounded-xl p-6 mb-6">
     <h3 class="font-semibold text-sf-blue mb-2">Scenario</h3>
-    <p class="text-sm text-sf-blue/80">Ensure all required software is installed and choose your AI coding tool. You'll pick one of two paths: Claude Code or manual (no AI tools).</p>
+    <p class="text-sm text-sf-blue/80">Ensure all required software is installed and choose your AI coding tool. You'll pick one of two paths: Agentforce Vibes Codebuilder or Claude Code.</p>
     <h3 class="font-semibold text-sf-blue mt-4 mb-2">Goal</h3>
     <p class="text-sm text-sf-blue/80">Ensure all required third-party software is installed and configured on your computer, including your preferred AI coding assistant.</p>
   </div>
 
-  <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 1: Verify Required Software</h3>
-
-  <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-6">
-    <table class="w-full text-sm">
-      <thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-semibold">Software</th><th class="px-4 py-3 text-left font-semibold">Required Version</th><th class="px-4 py-3 text-left font-semibold">Check Command</th></tr></thead>
-      <tbody class="divide-y divide-gray-100">
-        <tr><td class="px-4 py-3">Node.js</td><td class="px-4 py-3">v24 or later</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">node -v</code></td></tr>
-        <tr><td class="px-4 py-3">pnpm</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">pnpm -v</code></td></tr>
-        <tr><td class="px-4 py-3">Visual Studio Code</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3">Open VS Code</td></tr>
-        <tr><td class="px-4 py-3">Volta (optional)</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">volta -v</code></td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <p class="text-sm mb-2">Or check all three at once:</p>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-6 overflow-x-auto">echo "Node: $(node -v)" &amp;&amp; echo "pnpm: $(pnpm -v)" &amp;&amp; echo "VS Code: $(code -v | head -1)"</pre>
-
-  <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-4 mb-6 text-sm">
-    <strong class="text-sf-blue">💡 Volta (Optional):</strong> Storefront Next uses Volta for Node.js version management. Volta automatically pins tool versions for each project. Install via <code class="bg-white px-1.5 py-0.5 rounded text-xs">curl https://get.volta.sh | bash</code> (macOS/Linux) or download from the <a href="https://volta.sh" class="text-sf-accent underline">Volta website</a> (Windows).
-  </div>
-
-  <p class="text-sm mb-4">If you don't have Node.js v24+, install it using Volta:</p>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-6 overflow-x-auto">volta install node@24
-volta install pnpm</pre>
-
   <!-- ===================== -->
   <!-- AI TOOL SETUP -->
   <!-- ===================== -->
-  <h3 class="text-lg font-semibold text-sf-blue mt-10 mb-3">Task 2: Choose and Set Up Your AI Coding Tool</h3>
-  <p class="text-sm mb-4">Pick <strong>one</strong> of the two paths below. All exercises in this guide provide instructions for each path. If you don't have access to an AI coding tool, choose Path B (Manual).</p>
+  <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Choose and Set Up Your AI Coding Tool</h3>
+  <p class="text-sm mb-4">Pick <strong>one</strong> of the paths below. If you'd like to work entirely in the browser with no local install, choose Path A (Agentforce Vibes Codebuilder). If you have Claude Code set up locally, choose Path B (Claude Code).</p>
 
   <!-- TABS -->
   <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="ai-setup-tabs">
     <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('ai-setup-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude border-b-3 border-transparent hover:bg-amber-50 transition">🤖 Path A — Claude Code</button>
-      <button onclick="switchTab('ai-setup-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual border-b-3 border-transparent hover:bg-emerald-50 transition">📝 Path B — Manual</button>
+      <button onclick="switchTab('ai-setup-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes Codebuilder</button>
+      <button onclick="switchTab('ai-setup-tabs', 'claude')" data-tab="claude" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-claude border-b-3 border-transparent hover:bg-amber-50 transition">🤖 Path B — Claude Code</button>
     </div>
 
     <!-- CLAUDE CODE TAB -->
-    <div class="tab-content active p-6" data-tab="claude">
+    <div class="tab-content p-6" data-tab="claude">
+      <h4 class="font-semibold text-path-claude mb-3">Verify Required Software</h4>
+
+      <div class="bg-white border border-gray-200 rounded-lg overflow-hidden mb-6">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50"><tr><th class="px-4 py-3 text-left font-semibold">Software</th><th class="px-4 py-3 text-left font-semibold">Required Version</th><th class="px-4 py-3 text-left font-semibold">Check Command</th></tr></thead>
+          <tbody class="divide-y divide-gray-100">
+            <tr><td class="px-4 py-3">Node.js</td><td class="px-4 py-3">v24 or later</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">node -v</code></td></tr>
+            <tr><td class="px-4 py-3">pnpm</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">pnpm -v</code></td></tr>
+            <tr><td class="px-4 py-3">Visual Studio Code</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3">Open VS Code</td></tr>
+            <tr><td class="px-4 py-3">Volta (optional)</td><td class="px-4 py-3">Latest</td><td class="px-4 py-3"><code class="bg-gray-100 px-2 py-0.5 rounded text-xs">volta -v</code></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="text-sm mb-2">Or check all three at once:</p>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-6 overflow-x-auto">echo "Node: $(node -v)" &amp;&amp; echo "pnpm: $(pnpm -v)" &amp;&amp; echo "VS Code: $(code -v | head -1)"</pre>
+
+      <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-4 mb-6 text-sm">
+        <strong class="text-sf-blue">💡 Volta (Optional):</strong> Storefront Next uses Volta for Node.js version management. Volta automatically pins tool versions for each project. Install via <code class="bg-white px-1.5 py-0.5 rounded text-xs">curl https://get.volta.sh | bash</code> (macOS/Linux) or download from the <a href="https://volta.sh" class="text-sf-accent underline">Volta website</a> (Windows).
+      </div>
+
+      <p class="text-sm mb-4">If you don't have Node.js v24+, install it using Volta:</p>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-6 overflow-x-auto">volta install node@24
+volta install pnpm</pre>
+
       <h4 class="font-semibold text-path-claude mb-3">Claude Code Setup</h4>
       <ol class="space-y-3 text-sm">
         <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Install Claude Code if not already installed. Follow the setup at <a href="https://claude.ai/code" class="text-sf-accent underline">claude.ai/code</a>.</span></li>
@@ -224,22 +224,144 @@ volta install pnpm</pre>
         <p class="text-sm text-amber-800 mt-2">Click <strong>"Get Started"</strong> and follow the directions to install the <strong>CLI</strong>, <strong>MCP</strong>, and <strong>IDE extension</strong>.</p>
       </div>
       <ol start="3" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span><strong>Start a new Claude Code session</strong> in your project directory after installation.</span></li>
-        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify the installation by asking Claude Code: <em>"What B2C Commerce tools do you have?"</em></span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>In VS Code, click <strong>Extensions</strong> (the blocks icon in the left sidebar).</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Search <strong>"commerce"</strong>.</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Install <strong>Agentforce Commerce Vibes</strong> (trust <strong>"Salesforce"</strong> when prompted). New items will appear in the left nav as part of the install.</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>Click <strong>B2C Commerce CLI</strong> to install it.</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">7</span><span>Click <strong>B2C Commerce Extension</strong> to install it.</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span><span><strong>Start a new Claude Code session</strong> in your project directory after installation.</span></li>
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">9</span><span>Verify the installation by asking Claude Code: <em>"What B2C Commerce tools do you have?"</em></span></li>
       </ol>
       <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-4 text-sm">
         <strong class="text-amber-800">💡 Tip:</strong> The B2C MCP server gives Claude Code access to B2C Commerce documentation, development tools, deployment capabilities, and admin support — dramatically speeding up your exercises.
       </div>
     </div>
 
-    <!-- MANUAL TAB -->
-    <div class="tab-content p-6" data-tab="manual">
-      <h4 class="font-semibold text-path-manual mb-3">Manual Path — No AI Tools Required</h4>
-      <p class="text-sm mb-4">No additional setup needed! Throughout this guide, you'll follow the <span class="text-path-manual font-semibold">📝 Manual</span> instructions which provide step-by-step code to type or paste.</p>
-      <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-3 text-sm">
-        <strong class="text-emerald-800">✅ You're all set.</strong> Just make sure you have VS Code, Node.js v24+, and pnpm installed from Task 1 above.
+    <!-- AGENTFORCE VIBES CODEBUILDER TAB -->
+    <div class="tab-content active p-6" data-tab="vibes">
+      <h4 class="font-semibold text-path-vibes mb-3">Agentforce Vibes Codebuilder Setup</h4>
+      <p class="text-sm mb-4">This path runs entirely in the browser using Agentforce Vibes Codebuilder — no local installs required to get started.</p>
+      <ol class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Log in to the Salesforce org provided to you for this workshop.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Launch <strong>Agentforce Vibes</strong> from the Setup menu in the top-right corner.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>After Vibes loads, click <strong>Extensions</strong> (the blocks icon in the left sidebar).</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Trust files in the folder if prompted to do so.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Search <strong>"commerce"</strong>.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>Install <strong>Agentforce Commerce Vibes</strong> (trust <strong>"Salesforce"</strong> when prompted).</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">7</span><span>Wait for a number of items to appear in the left nav — these are added as part of ACV. When it's complete, you'll see <strong>"Start Building with Agentforce Commerce Vibes"</strong>.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span><span>Click <strong>B2C Commerce CLI</strong> to install it.</span></li>
+      </ol>
+
+      <h5 class="font-semibold text-path-vibes mt-6 mb-2">Launch a Terminal and Install Node.js / pnpm</h5>
+      <ol class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>In the Vibes IDE, create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code>.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Add the setup script below to the file.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run:</span></li>
+      </ol>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
+      <ol start="4" class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">node --version &amp;&amp; pnpm --version</code></span></li>
+      </ol>
+
+      <div class="bg-violet-50 border border-violet-200 rounded-lg p-4 my-4 text-sm">
+        <p class="font-medium text-violet-900 mb-2">Optionally, create the file from the terminal instead:</p>
+        <ol class="space-y-2 list-decimal list-inside text-violet-800">
+          <li>In the terminal, run:</li>
+        </ol>
+        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-2 overflow-x-auto">touch setup-storefront-next.sh</pre>
+        <ol start="2" class="space-y-2 list-decimal list-inside text-violet-800">
+          <li>Press <code class="bg-white px-1.5 py-0.5 rounded text-xs">Ctrl+P</code> or <code class="bg-white px-1.5 py-0.5 rounded text-xs">Cmd+P</code>.</li>
+          <li>Type: <code class="bg-white px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code></li>
+          <li>Press Enter, paste the script below, and save.</li>
+          <li>Run:</li>
+        </ol>
+        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mt-2 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
       </div>
+
+      <p class="text-sm font-semibold mb-2">Setup script</p>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto overflow-y-auto max-h-[14rem]">bash &lt;&lt;'SETUP'
+set -Eeuo pipefail
+
+trap 'printf "\nERROR: Setup failed at line %s.\n" "$LINENO" &gt;&amp;2' ERR
+
+NVM_VERSION="v0.40.3"
+NODE_VERSION="24"
+PNPM_VERSION="10.28.0"
+NVM_DIR="$HOME/.nvm"
+BASHRC_LOCAL="$HOME/.bashrc.local"
+
+printf "\n[1/5] Installing NVM %s...\n" "$NVM_VERSION"
+
+if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+    PROFILE=/dev/null curl -fsSL \
+        "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" |
+        PROFILE=/dev/null bash
+else
+    printf "NVM is already installed at %s.\n" "$NVM_DIR"
+fi
+
+printf "\n[2/5] Loading NVM...\n"
+
+unset NPM_CONFIG_PREFIX
+export NVM_DIR
+. "$NVM_DIR/nvm.sh"
+
+printf "\n[3/5] Installing Node.js %s...\n" "$NODE_VERSION"
+
+nvm install "$NODE_VERSION"
+nvm use "$NODE_VERSION"
+nvm alias default "$NODE_VERSION"
+
+printf "\n[4/5] Installing pnpm %s...\n" "$PNPM_VERSION"
+
+npm install --global "pnpm@$PNPM_VERSION"
+
+printf "\n[5/5] Configuring future terminal sessions...\n"
+
+touch "$BASHRC_LOCAL"
+
+if ! grep -q '# storefront-next-nvm:start' "$BASHRC_LOCAL"; then
+    cat &gt;&gt; "$BASHRC_LOCAL" &lt;&lt;'PROFILE'
+
+# storefront-next-nvm:start
+export NVM_DIR="$HOME/.nvm"
+
+if [ -s "$NVM_DIR/nvm.sh" ]; then
+    unset NPM_CONFIG_PREFIX
+    . "$NVM_DIR/nvm.sh"
+    nvm use --silent default
+fi
+
+if [ -s "$NVM_DIR/bash_completion" ]; then
+    . "$NVM_DIR/bash_completion"
+fi
+# storefront-next-nvm:end
+PROFILE
+    printf "Added NVM initialization to %s.\n" "$BASHRC_LOCAL"
+else
+    printf "NVM initialization already exists in %s.\n" "$BASHRC_LOCAL"
+fi
+
+# Confirm that the saved profile can be loaded.
+. "$BASHRC_LOCAL"
+
+printf "\nSetup complete.\n"
+printf "Node:  %s\n" "$(node --version)"
+printf "npm:   %s\n" "$(npm --version)"
+printf "pnpm:  %s\n" "$(pnpm --version)"
+printf "node:  %s\n" "$(command -v node)"
+printf "pnpm:  %s\n" "$(command -v pnpm)"
+SETUP</pre>
+
+      <p class="text-sm mb-2">Verify the output looks like this:</p>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">Setup complete.
+Node:  v24.21.0
+npm:   11.19.0
+pnpm:  10.28.0
+node:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/node
+pnpm:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/pnpm</pre>
     </div>
+
   </div>
 
 </section>
@@ -307,14 +429,20 @@ volta install pnpm</pre>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">What the Instructor Will Demonstrate</h3>
   <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span><strong>Storefront creation</strong> in Managed Runtime — how a new storefront project is set up from the template.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span><strong>Storefront creation in Business Manager</strong> — how a new storefront project is set up from the template.</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span><strong>SLAS client configuration</strong> — creating and downloading SLAS credentials for API authentication.</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span><strong>Environment variables</strong> — how the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code> file maps to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">config.server.ts</code> using the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">PUBLIC__</code> prefix convention.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span><strong>eCDN deployment</strong> — how the storefront is automatically served via Salesforce's edge delivery network.</span></li>
   </ol>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Your Environment Variables Reference</h3>
-  <p class="text-sm mb-4">Create two new files in the root of your project — <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">dw.json</code> and <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code> — and copy in the contents below. You'll use these in Exercise 4.</p>
+  <ol class="space-y-3 text-sm mb-4">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Login to Business Manager and go to the Storefronts page. Multiple storefronts have been pre-generated to save time in the workshop. Select the storefront that corresponds with the one you have been assigned.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Step 1: Click <strong>Download .env</strong></span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Step 2: Click <strong>Download .csv</strong><br><strong class="text-amber-700">NOTE:</strong> You can only download the csv file one time. Be sure that you don't lose this file.</span></li>
+  </ol>
+  <p class="text-sm mb-4">In the Source Code section, note the provided terminal command to create a storefront locally. We will be using this in our next step.</p>
+
+  <img src="images/storefront-settings.png" alt="Business Manager Storefront Settings page showing Download .env and Download .csv buttons, and the terminal command to create a storefront locally" class="rounded-lg border border-gray-200 mb-4 w-full">
 
   <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-4 text-sm">
     <strong class="text-amber-800">🔒 Secrets redacted:</strong> The <code class="text-xs">client-secret</code>, <code class="text-xs">password</code>, and <code class="text-xs">COMMERCE_API_SLAS_SECRET</code> values below are placeholders. Your instructor will share the real values with you separately — don't publish real secrets in this guide.
@@ -337,7 +465,7 @@ volta install pnpm</pre>
 }</pre>
 
   <p class="text-sm font-semibold mb-2"><code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code></p>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">MRT_PROJECT=zzpm054-ms-v3-56b14d
+  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto overflow-y-auto max-h-[14rem]">MRT_PROJECT=zzpm054-ms-v3-56b14d
 
 MRT_TARGET=zzpm054-ms-96339d56
 
@@ -397,7 +525,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   <div class="flex items-center gap-3 mb-2">
     <span class="bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full">Hands-on · 8 min</span>
   </div>
-  <h2 class="text-3xl font-bold text-sf-blue mb-4">Exercise 4: Local Setup</h2>
+  <h2 class="text-3xl font-bold text-sf-blue mb-4">Exercise 4: Project Setup</h2>
 
   <div class="bg-sf-cloud rounded-xl p-6 mb-6">
     <h3 class="font-semibold text-sf-blue mb-2">Scenario</h3>
@@ -408,33 +536,21 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 1: Create Your Storefront Project</h3>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="create-project-tabs">
-    <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('create-project-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude">🤖 Claude Code</button>
-      <button onclick="switchTab('create-project-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual">📝 Manual</button>
-    </div>
+  <ol class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>First, copy your downloaded <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> file into the root of your current project (drag and drop).</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Now create a storefront with this command:</span></li>
+  </ol>
+  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">pnpm dlx @salesforce/storefront-next-dev create-storefront</pre>
 
-    <div class="tab-content active p-6" data-tab="claude">
-      <p class="text-sm mb-3">Open Claude Code and submit this prompt:</p>
-      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm overflow-x-auto">Create a storefront next project. I will provide my .env file with settings</pre>
-      <p class="text-sm mt-3 text-gray-600">Follow the agent prompts to complete the remaining steps. Claude Code will scaffold the project and guide you through setup.</p>
-    </div>
+  <ol start="3" class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Accept the defaults.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Now copy your <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> to replace the generated <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code> with defaults:</span></li>
+  </ol>
+  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">cp env.txt sfcc-storefront/.env</pre>
 
-    <div class="tab-content p-6" data-tab="manual">
-      <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Open your terminal (Terminal app on macOS, Command Prompt or PowerShell on Windows).</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Navigate to the folder where you want your project (e.g., <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">cd ~/projects</code>).</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run the create storefront command:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">pnpm dlx @salesforce/storefront-next-dev create-storefront -n my-storefront</pre>
-      <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-3 mt-4 text-sm">
-        <strong class="text-sf-blue">💡 Note:</strong> This command drops you into an interactive prompt — it will ask you to pick a vertical (e.g., fashion, cosmetic, footwear) and confirm the template before scaffolding. Answer the prompts to continue.
-      </div>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Once complete, navigate into the project: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">cd my-storefront</code></span></li>
-      </ol>
-    </div>
-  </div>
+  <ol start="5" class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the project folder name specified during the storefront creation. Then open a new terminal window to continue.</span></li>
+  </ol>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Install Dependencies &amp; Start</h3>
   <ol class="space-y-3 text-sm">
@@ -452,17 +568,49 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   </div>
 
   <ol start="2" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span><strong>Copy your downloaded <code>.env</code> file</strong> (from Exercise 3) into the root of your project folder, replacing the existing one.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Start the local development server:</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Start the local development server:</span></li>
   </ol>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">pnpm dev</pre>
 
-  <ol start="4" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Visit <a href="http://localhost:5173" class="text-sf-accent underline font-mono">http://localhost:5173</a> in your browser. You should see the MarketStreet storefront loading! 🎉</span></li>
-  </ol>
+  <h3 class="text-lg font-semibold text-sf-blue mt-10 mb-3">Task 3: View Your Site</h3>
 
-  <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6 text-sm">
-    <strong class="text-green-800">✅ Checkpoint:</strong> You should see the MarketStreet storefront with navigation (Women, Men, Kids), a hero carousel, and featured products. If you see a blank page or error, check your <code>.env</code> values.
+  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="view-site-tabs">
+    <div class="flex border-b border-gray-200 bg-gray-50">
+      <button onclick="switchTab('view-site-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes Codebuilder</button>
+      <button onclick="switchTab('view-site-tabs', 'claude')" data-tab="claude" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-claude border-b-3 border-transparent hover:bg-amber-50 transition">🤖 Path B — Claude Code</button>
+    </div>
+
+    <div class="tab-content p-6" data-tab="claude">
+      <ol class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-claude text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Visit <a href="http://localhost:5173" class="text-sf-accent underline font-mono">http://localhost:5173</a> in your browser. You should see the MarketStreet storefront loading! 🎉</span></li>
+      </ol>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6 text-sm">
+        <strong class="text-green-800">✅ Checkpoint:</strong> You should see the MarketStreet storefront with navigation (Women, Men, Kids), a hero carousel, and featured products. If you see a blank page or error, check your <code>.env</code> values.
+      </div>
+    </div>
+
+    <div class="tab-content active p-6" data-tab="vibes">
+      <ol class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Next to the <strong>Terminal</strong> tab is the <strong>Ports</strong> tab. Click this and add a mapping for the port that the server started on (i.e. <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">5173</code>). This will then provide a forwarding address.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Hover over this URL and click <strong>"follow link"</strong> to go to your site.</span></li>
+      </ol>
+
+      <p class="text-sm mb-3 mt-4">On your first request, the codebuilder environment is not allowed, so you'll see an error like this:</p>
+      <pre class="bg-gray-900 text-red-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">Blocked request. This host ("e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.code-builder.platform.salesforce.com") is not allowed.
+To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.code-builder.platform.salesforce.com" to `server.allowedHosts` in vite.config.js.</pre>
+
+      <p class="text-sm mb-3">We can ask AI to fix the error. In your Agentforce Commerce Vibes window, give the command:</p>
+      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-4 overflow-x-auto">add ".sf.code-builder.platform.salesforce.com" to `server.allowedHosts` in vite.config.ts</pre>
+
+      <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-3 text-sm mb-4">
+        <strong class="text-sf-blue">💡 Note:</strong> The server will hot reload the configuration, but this is not always reliable. If you continue to get an error after refreshing the page, manually restart the server.
+      </div>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6 text-sm">
+        <strong class="text-green-800">✅ Checkpoint:</strong> You should see the MarketStreet storefront with navigation (Women, Men, Kids), a hero carousel, and featured products. If you see a blank page or error, check your <code>.env</code> values.
+      </div>
+    </div>
   </div>
 </section>
 
@@ -567,37 +715,13 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Update the Site Theme</h3>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="theme-tabs">
-    <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('theme-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude">🤖 Claude Code</button>
-      <button onclick="switchTab('theme-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual">📝 Manual</button>
-    </div>
-    <div class="tab-content active p-6" data-tab="claude">
-      <p class="text-sm mb-3">Ask Claude Code:</p>
-      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm overflow-x-auto">Update the Storefront Next theme colors in src/theme/tokens/core.css to use this brand identity:
---background: #f3f3f9
---foreground: #080707
---primary: #0176d3
---muted-foreground: #706e6b
---border: #dddbda</pre>
-    </div>
-    <div class="tab-content p-6" data-tab="manual">
-      <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Open <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/theme/index.css</code> to see all the CSS files included.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Navigate to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/theme/tailwind.css</code>, review the <code>@theme inline{}</code> block to see all CSS variables used in the theme.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Navigate to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/theme/tokens/core.css</code>. Find the <code>:root</code> pseudo-class. Update these variables:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">--background: #f3f3f9;
---foreground: #080707;
---primary: #0176d3;
---muted-foreground: #706e6b;
---border: #dddbda;</pre>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span><strong>Save</strong> the file.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Navigate to the server and notice the changed theme.</span></li>
-      </ol>
-    </div>
-  </div>
+  <p class="text-sm mb-3">Give the command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">Update the Storefront Next theme colors in src/theme/tokens/core.css to use this brand identity:
+--background: #fff200
+--foreground: #1a0033
+--primary: #ff0080
+--muted-foreground: #6b21a8
+--border: #1a0033</pre>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Update the Site Logo</h3>
   <ol class="space-y-3 text-sm">
@@ -626,110 +750,8 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 4: Add a Custom Page and Banner Component</h3>
   <p class="text-sm mb-4">This task teaches two key Storefront Next concepts: creating a <strong>reusable component</strong> and <strong>file-based routing</strong>.</p>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="custom-page-tabs">
-    <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('custom-page-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude">🤖 Claude Code</button>
-      <button onclick="switchTab('custom-page-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual">📝 Manual</button>
-    </div>
-    <div class="tab-content active p-6" data-tab="claude">
-      <p class="text-sm mb-3">Ask Claude Code:</p>
-      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm overflow-x-auto">Create a CustomBanner component in src/components/custom-banner/index.tsx that takes title, optional subtitle, and optional className props. Use Tailwind CSS classes (bg-primary, text-primary-foreground, responsive padding). Then create a custom page route at src/routes/_app.custom-page.tsx that renders this banner with the title "Welcome to the Custom Collection!"</pre>
-    </div>
-    <div class="tab-content p-6" data-tab="manual">
-      <p class="text-sm font-semibold mb-3">Step 1: Create the component</p>
-      <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>In <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/components</code>, create a folder named <strong>custom-banner</strong>.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>In that folder, create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">index.tsx</code>:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">/**
- * Copyright 2026 Salesforce, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-import { type ReactElement } from 'react';
-
-export interface CustomBannerProps {
-  /** The title text to display in the banner */
-  title: string;
-  /** Optional subtitle text */
-  subtitle?: string;
-  /** Optional CSS class name for custom styling */
-  className?: string;
-}
-
-/**
- * CustomBanner component that displays a prominent title banner.
- *
- * @example
- * &lt;CustomBanner title="Welcome to the Custom Collection!" /&gt;
- */
-export default function CustomBanner({ title, subtitle, className }: CustomBannerProps): ReactElement {
-  return (
-    &lt;div className={`w-full bg-primary text-primary-foreground py-12 md:py-16 lg:py-20 ${className || ''}`}&gt;
-      &lt;div className="container mx-auto px-4 sm:px-6 lg:px-8"&gt;
-        &lt;div className="max-w-4xl mx-auto text-center"&gt;
-          &lt;h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight"&gt;
-            {title}
-          &lt;/h1&gt;
-          {subtitle &amp;&amp; (
-            &lt;p className="text-lg sm:text-xl md:text-2xl text-primary-foreground/90"&gt;
-              {subtitle}
-            &lt;/p&gt;
-          )}
-        &lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/div&gt;
-  );
-}</pre>
-      <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mt-3 text-sm">
-        <strong class="text-yellow-800">⚠️ Note:</strong> Every <code class="bg-white px-1.5 py-0.5 rounded text-xs">.ts</code>/<code class="bg-white px-1.5 py-0.5 rounded text-xs">.tsx</code> file in this project requires the Apache 2.0 license header shown above (enforced by lint, which runs with zero tolerance for warnings). Every code sample in this guide from here on includes it — don't skip it when you paste.
-      </div>
-
-      <p class="text-sm font-semibold mt-6 mb-3">Step 2: Create the route</p>
-      <ol start="3" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>In <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/routes</code>, create a file named <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">_app.custom-page.tsx</code>:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">/**
- * Copyright 2026 Salesforce, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-import CustomBanner from '@/components/custom-banner';
-
-export default function CustomPage() {
-  return (
-    &lt;div className="pb-16"&gt;
-      &lt;CustomBanner title="Welcome to the Custom Collection!" /&gt;
-    &lt;/div&gt;
-  );
-}</pre>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Restart the server: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">pnpm dev</code></span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Navigate to <a href="http://localhost:5173/MarketStreet/en-US/custom-page" class="text-sf-accent underline font-mono">http://localhost:5173/MarketStreet/en-US/custom-page</a></span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>You should see the <strong>banner with the title "Welcome to the Custom Collection!"</strong></span></li>
-      </ol>
-    </div>
-  </div>
+  <p class="text-sm mb-3">Give the command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">Create a CustomBanner component in src/components/custom-banner/index.tsx that takes title, optional subtitle, and optional className props. Use Tailwind CSS classes (bg-primary, text-primary-foreground, responsive padding). Then create a custom page route at src/routes/_app.custom-page.tsx that renders this banner with the title "Welcome to the Custom Collection!"</pre>
 
   <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-4 text-sm">
     <strong class="text-sf-blue">💡 Why This Matters:</strong> The CustomBanner component uses Tailwind CSS theme tokens (<code>bg-primary</code>, <code>text-primary-foreground</code>) — not inline styles. This means it automatically adapts when you change the theme. The route file name <code>_app.custom-page.tsx</code> uses <code>flatRoutes()</code> convention: the <code>_app.</code> prefix nests it under the app layout, and dots become URL slashes, giving you <code>/custom-page</code>. Notice the route is a plain exported function component with no wrapper HOC — that's the convention used by almost every route in this codebase (home, about-us, and the route you just built). A <code>createPage()</code> helper exists in the codebase but is only used by a handful of specialized routes, so a plain component is the pattern to reach for by default.
@@ -754,58 +776,13 @@ export default function CustomPage() {
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 1: Add a Personalized Welcome Banner</h3>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="welcome-tabs">
-    <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('welcome-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude">🤖 Claude Code</button>
-      <button onclick="switchTab('welcome-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual">📝 Manual</button>
-    </div>
-
-    <div class="tab-content active p-6" data-tab="claude">
-      <p class="text-sm mb-3">Ask Claude Code:</p>
-      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm overflow-x-auto">In the home page component (src/routes/_app._index.tsx), add a personalized welcome banner that:
+  <p class="text-sm mb-3">Give the command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">In the home page component (src/routes/_app._index.tsx), add a personalized welcome banner that:
 1. Uses the useAuth hook from @/providers/auth to check user type
 2. Shows "Welcome back Member!" with a blue background for registered users
 3. Shows "Welcome to our Storefront! Sign in to unlock exclusive member offers" for guests
 4. Use Tailwind CSS classes only — no inline styles
 5. Place it at the top of the page content, above the SeoMeta component</pre>
-    </div>
-
-    <div class="tab-content p-6" data-tab="manual">
-      <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Navigate to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/routes/_app._index.tsx</code> — the home page route file.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Add the import at the top of the file:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">import { useAuth } from "@/providers/auth";</pre>
-      <ol start="3" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Inside the <code>HomePage</code> function, at the start, add:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">const auth = useAuth();
-const userType = auth?.userType ?? "guest";</pre>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>In the <code>return</code> section, just inside the first <code>&lt;div&gt;</code> and above the <code>&lt;SeoMeta</code> component, add:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">{userType === "registered" ? (
-  &lt;div className="p-5 bg-blue-50 rounded-lg my-5"&gt;
-    &lt;h2 className="text-xl font-semibold"&gt;Welcome back Member! 👋&lt;/h2&gt;
-    &lt;p className="text-sm text-muted-foreground"&gt;
-      We are glad to have you back. Check out your personalized recommendations below.
-    &lt;/p&gt;
-  &lt;/div&gt;
-) : (
-  &lt;div className="p-5 bg-muted rounded-lg my-5"&gt;
-    &lt;h2 className="text-xl font-semibold"&gt;Welcome to our Storefront!&lt;/h2&gt;
-    &lt;p className="text-sm text-muted-foreground"&gt;
-      Sign in to unlock exclusive member offers and view your wishlist.
-    &lt;/p&gt;
-  &lt;/div&gt;
-)}</pre>
-      <ol start="5" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Restart the dev server: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">pnpm dev</code></span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>The home page should show the guest welcome message at the top.</span></li>
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">7</span><span>Register and log in — notice the banner changes to the personalized member welcome.</span></li>
-      </ol>
-    </div>
-  </div>
 
   <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-4 text-sm">
     <strong class="text-sf-blue">💡 Why Tailwind, Not Inline Styles:</strong> Notice we're using Tailwind utility classes (<code>p-5 bg-blue-50 rounded-lg</code>) instead of React <code>style={{}}</code> objects. This is the Storefront Next convention — Tailwind classes are theme-aware, responsive, and consistent with the rest of the codebase. Compare this with the <code>CustomBanner</code> from Exercise 6 which uses the same pattern.
@@ -922,14 +899,8 @@ Strap Style: Top handle, Adjustable crossbody strap, Chain strap, Detachable str
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Create the ProductInsightPanel Component</h3>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="pdp-tabs">
-    <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('pdp-tabs', 'claude')" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-claude">🤖 Claude Code</button>
-      <button onclick="switchTab('pdp-tabs', 'manual')" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-manual">📝 Manual</button>
-    </div>
-
-    <div class="tab-content active p-6" data-tab="claude">
-      <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm overflow-x-auto">Create a ProductInsightPanel component in src/components/product-insight-panel/index.tsx that:
+  <p class="text-sm mb-3">Give the command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">Create a ProductInsightPanel component in src/components/product-insight-panel/index.tsx that:
 1. Takes a product prop (or null) with price and inventory.stockLevel
 2. Shows "Premium product with high customer satisfaction" if price > $100, otherwise "Affordable choice with great value"
 3. Shows "Low stock — selling fast!" if stockLevel < 5, otherwise "In stock and ready to ship"
@@ -937,71 +908,6 @@ Strap Style: Top handle, Adjustable crossbody strap, Chain strap, Detachable str
 5. Use a blue heading color for "Product Insights 💡"
 
 Then import and add it to src/components/product-view/product-info.tsx right after the ProductPrice component.</pre>
-    </div>
-
-    <div class="tab-content p-6" data-tab="manual">
-      <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>In <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/components</code>, create a folder named <strong>product-insight-panel</strong>, then create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">index.tsx</code> inside it — every component in this project lives in its own <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">component-name/index.tsx</code> folder, matching <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">custom-banner/</code> and <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">promo-callout/</code> from earlier exercises:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">/**
- * Copyright 2026 Salesforce, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-type ProductInsightPanelProps = {
-  product: {
-    price?: number;
-    inventory?: {
-      stockLevel?: number;
-    };
-  } | null;
-};
-
-export default function ProductInsightPanel({ product }: ProductInsightPanelProps) {
-  const price = product?.price ?? 0;
-  const productInsight = {
-    summary:
-      price > 100
-        ? 'Premium product with high customer satisfaction'
-        : 'Affordable choice with great value',
-    highlight:
-      (product?.inventory?.stockLevel ?? 0) < 5
-        ? 'Low stock — selling fast!'
-        : 'In stock and ready to ship',
-  };
-
-  return (
-    &lt;div className="p-4 bg-blue-50 rounded-lg my-4"&gt;
-      &lt;h3 className="mb-1.5 text-blue-600 font-semibold"&gt;
-        Product Insights 💡
-      &lt;/h3&gt;
-      &lt;p className="mt-1"&gt;{productInsight.summary}&lt;/p&gt;
-      &lt;p className="mt-1 font-bold"&gt;{productInsight.highlight}&lt;/p&gt;
-    &lt;/div&gt;
-  );
-}</pre>
-
-      <ol start="2" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Open <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/components/product-view/product-info.tsx</code>. Add the import:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">import ProductInsightPanel from '@/components/product-insight-panel';</pre>
-
-      <ol start="3" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-manual text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Find the <code>&lt;ProductPrice&gt;</code> component in the file. Just after the closing <code>&lt;/div&gt;</code> that wraps it, add:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">&lt;ProductInsightPanel product={product} /&gt;</pre>
-    </div>
-  </div>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Test on Storefront</h3>
   <ol class="space-y-3 text-sm">
@@ -1370,9 +1276,8 @@ function switchTab(containerId, tab) {
   const container = document.getElementById(containerId);
   if (!container) return;
   // Update tab buttons
-  container.querySelectorAll('.tab-btn').forEach((btn, i) => {
-    const tabs = ['claude', 'manual'];
-    btn.classList.toggle('active', tabs[i] === tab);
+  container.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.tab === tab);
   });
   // Update tab content
   container.querySelectorAll('.tab-content').forEach(content => {

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xmlns="http://www.demandware.com/xml/impex/metadata/2006-10-31">
+    <type-extension type-id="Product">
+        <custom-attribute-definitions>
+            <attribute-definition attribute-id="bagType">
+                <display-name xml:lang="x-default">Bag Type</display-name>
+                <type>enum-of-string</type>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Handbag</display>
+                        <value>handbag</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Crossbody</display>
+                        <value>crossbody</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Tote</display>
+                        <value>tote</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Satchel</display>
+                        <value>satchel</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Shoulder Bag</display>
+                        <value>shoulderBag</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Clutch</display>
+                        <value>clutch</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Bucket Bag</display>
+                        <value>bucketBag</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="closureType">
+                <display-name xml:lang="x-default">Closure Type</display-name>
+                <type>enum-of-string</type>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Zipper</display>
+                        <value>zipper</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Magnetic snap</display>
+                        <value>magneticSnap</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Turn-lock</display>
+                        <value>turnLock</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Drawstring</display>
+                        <value>drawstring</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Flap</display>
+                        <value>flap</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+            <attribute-definition attribute-id="strapStyle">
+                <display-name xml:lang="x-default">Strap Style</display-name>
+                <type>enum-of-string</type>
+                <value-definitions>
+                    <value-definition>
+                        <display xml:lang="x-default">Top handle</display>
+                        <value>topHandle</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Adjustable crossbody strap</display>
+                        <value>adjustableCrossbodyStrap</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Chain strap</display>
+                        <value>chainStrap</value>
+                    </value-definition>
+                    <value-definition>
+                        <display xml:lang="x-default">Detachable strap</display>
+                        <value>detachableStrap</value>
+                    </value-definition>
+                </value-definitions>
+            </attribute-definition>
+        </custom-attribute-definitions>
+    </type-extension>
+</metadata>
