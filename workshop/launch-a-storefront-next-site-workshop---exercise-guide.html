@@ -51,6 +51,39 @@
   }
   .copy-btn:hover { background: rgba(255,255,255,0.25); color: #fff; }
   .copy-btn.copied { background: #059669; color: #fff; border-color: #059669; }
+  .img-frame { position: relative; max-height: 200px; overflow: hidden; }
+  .img-frame img { display: block; width: 100%; height: 200px; object-fit: contain; background: #f9fafb; }
+  .img-zoom-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 32px;
+    height: 32px;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #032D60;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 10;
+  }
+  .img-zoom-btn:hover { background: #fff; border-color: rgba(0,0,0,0.2); }
+  #img-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(3,45,96,0.9);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    cursor: zoom-out;
+    z-index: 50;
+  }
+  #img-lightbox.active { display: flex; }
+  #img-lightbox img { max-width: 100%; max-height: 100%; border-radius: 0.5rem; cursor: default; }
 </style>
 </head>
 <body class="bg-white text-gray-900 leading-relaxed">
@@ -71,7 +104,7 @@
     <a href="#ex-1" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 1: Prepare Your Environment</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Foundation</div>
     <a href="#ex-2" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 2: SN Introduction</a>
-    <a href="#ex-3" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 3: Storefront Overview</a>
+    <a href="#ex-3" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 3: Configure &amp; Deploy</a>
     <a href="#ex-4" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 4: Project Setup</a>
     <a href="#ex-5" class="block px-3 py-2 rounded hover:bg-white/10 transition">Ex 5: Review Key Elements</a>
     <div class="text-xs uppercase tracking-widest text-sf-light mt-4 mb-2 px-3">Hands-On</div>
@@ -106,7 +139,7 @@
   <h1 class="text-5xl lg:text-6xl font-extrabold text-sf-blue leading-tight mb-4">Launch a Storefront Next<br>Site Workshop</h1>
   <p class="text-xl text-sf-gray mb-8">Dreamforce 2026 Workshop — B2C201</p>
   <div class="flex flex-wrap justify-center gap-3 text-sm">
-    <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full font-medium">✨ Agentforce Vibes Codebuilder</span>
+    <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full font-medium">✨ Agentforce Vibes</span>
     <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">🤖 Claude Code</span>
   </div>
   <p class="text-sm text-sf-gray mt-6">Two paths — pick the one that fits your setup</p>
@@ -153,7 +186,7 @@
 
   <div class="mt-4 bg-sf-cloud rounded-lg p-4 text-sm">
     <strong class="text-sf-blue">🛠 Your AI Tool Path:</strong>
-    <span class="text-sf-blue/80"> Throughout this guide, you'll give AI commands to make each change — whether you're working in <span class="text-path-vibes font-semibold">Agentforce Vibes Codebuilder</span> (Path A) or <span class="text-path-claude font-semibold">Claude Code</span> (Path B). Pick whichever matches your setup and stick with it. Both reach the same result.</span>
+    <span class="text-sf-blue/80"> Throughout this guide, you'll give AI commands to make each change — whether you're working in <span class="text-path-vibes font-semibold">Agentforce Vibes</span> (Path A) or <span class="text-path-claude font-semibold">Claude Code</span> (Path B). Pick whichever matches your setup and stick with it. Both reach the same result.</span>
   </div>
 </section>
 
@@ -168,7 +201,7 @@
 
   <div class="bg-sf-cloud rounded-xl p-6 mb-6">
     <h3 class="font-semibold text-sf-blue mb-2">Scenario</h3>
-    <p class="text-sm text-sf-blue/80">Ensure all required software is installed and choose your AI coding tool. You'll pick one of two paths: Agentforce Vibes Codebuilder or Claude Code.</p>
+    <p class="text-sm text-sf-blue/80">Ensure all required software is installed and choose your AI coding tool. You'll pick one of two paths: Agentforce Vibes or Claude Code.</p>
     <h3 class="font-semibold text-sf-blue mt-4 mb-2">Goal</h3>
     <p class="text-sm text-sf-blue/80">Ensure all required third-party software is installed and configured on your computer, including your preferred AI coding assistant.</p>
   </div>
@@ -177,12 +210,12 @@
   <!-- AI TOOL SETUP -->
   <!-- ===================== -->
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Choose and Set Up Your AI Coding Tool</h3>
-  <p class="text-sm mb-4">Pick <strong>one</strong> of the paths below. If you'd like to work entirely in the browser with no local install, choose Path A (Agentforce Vibes Codebuilder). If you have Claude Code set up locally, choose Path B (Claude Code).</p>
+  <p class="text-sm mb-4">Pick <strong>one</strong> of the paths below. If you'd like to work entirely in the browser with no local install, choose Path A (Agentforce Vibes). If you have Claude Code set up locally, choose Path B (Claude Code).</p>
 
   <!-- TABS -->
   <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="ai-setup-tabs">
     <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('ai-setup-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes Codebuilder</button>
+      <button onclick="switchTab('ai-setup-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes</button>
       <button onclick="switchTab('ai-setup-tabs', 'claude')" data-tab="claude" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-claude border-b-3 border-transparent hover:bg-amber-50 transition">🤖 Path B — Claude Code</button>
     </div>
 
@@ -237,25 +270,44 @@ volta install pnpm</pre>
       </div>
     </div>
 
-    <!-- AGENTFORCE VIBES CODEBUILDER TAB -->
+    <!-- AGENTFORCE VIBES TAB -->
     <div class="tab-content active p-6" data-tab="vibes">
-      <h4 class="font-semibold text-path-vibes mb-3">Agentforce Vibes Codebuilder Setup</h4>
-      <p class="text-sm mb-4">This path runs entirely in the browser using Agentforce Vibes Codebuilder — no local installs required to get started.</p>
+      <h4 class="font-semibold text-path-vibes mb-3">Agentforce Vibes Setup</h4>
+      <p class="text-sm mb-4">This path runs entirely in the browser using Agentforce Vibes — no local installs required to get started.</p>
       <ol class="space-y-3 text-sm">
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Log in to the Salesforce org provided to you for this workshop.</span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Launch <strong>Agentforce Vibes</strong> from the Setup menu in the top-right corner.</span></li>
+      </ol>
+
+      <img src="images/vibes-setup-menu.png" alt="Setup menu open in the top-right corner, showing the Agentforce Vibes option in the list" class="rounded-lg border border-gray-200 mb-4 w-full">
+
+      <ol start="3" class="space-y-3 text-sm">
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>After Vibes loads, click <strong>Extensions</strong> (the blocks icon in the left sidebar).</span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Trust files in the folder if prompted to do so.</span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Search <strong>"commerce"</strong>.</span></li>
+      </ol>
+
+      <img src="images/vibes-extensions-marketplace.png" alt="Extensions marketplace search results for &quot;commerce&quot;, showing the Agentforce Commerce Vibes extension by Salesforce" class="rounded-lg border border-gray-200 mb-4 w-full">
+
+      <ol start="6" class="space-y-3 text-sm">
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>Install <strong>Agentforce Commerce Vibes</strong> (trust <strong>"Salesforce"</strong> when prompted).</span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">7</span><span>Wait for a number of items to appear in the left nav — these are added as part of ACV. When it's complete, you'll see <strong>"Start Building with Agentforce Commerce Vibes"</strong>.</span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span><span>Click <strong>B2C Commerce CLI</strong> to install it.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span><span>Click the Agentforce Commerce Vibes Setup Checklist (next to the settings cog). Click <strong>B2C Commerce CLI</strong> to install it. Click <strong>B2C Commerce Extension</strong> to install it. That will open a terminal window that we will use for further steps</span></li>
       </ol>
+
+      <img src="images/vibes-setup-checklist.png" alt="Agentforce Commerce Vibes setup checklist showing Commerce Org Connection ready, and B2C Commerce CLI, B2C Commerce Extension, and B2C Commerce Project steps" class="rounded-lg border border-gray-200 mb-4 w-full">
 
       <h5 class="font-semibold text-path-vibes mt-6 mb-2">Launch a Terminal and Install Node.js / pnpm</h5>
       <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>In the Vibes IDE, create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code>.</span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Add the setup script below to the file.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code> using one of the following options:
+          <ol type="A" class="mt-2 space-y-2 list-inside">
+            <li><strong>Option A:</strong> Select the Explorer (two overlapping documents in the left nav), right-click in the Explorer window, and select New File.</li>
+            <li><strong>Option B:</strong> Select the hamburger menu (top left corner), then select File &gt; New File.</li>
+            <li><strong>Option C:</strong> In the terminal, run:</li>
+          </ol>
+          <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-2 overflow-x-auto">touch setup-storefront-next.sh</pre>
+        </span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Open the newly created file through Explorer or by Pressing <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Ctrl+P</code> or <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Cmd+P</code> and then type "setup" to find the newly created file. Then Copy and Paste the Setup script (below) into the newly created file</span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run:</span></li>
       </ol>
       <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
@@ -263,20 +315,7 @@ volta install pnpm</pre>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">node --version &amp;&amp; pnpm --version</code></span></li>
       </ol>
 
-      <div class="bg-violet-50 border border-violet-200 rounded-lg p-4 my-4 text-sm">
-        <p class="font-medium text-violet-900 mb-2">Optionally, create the file from the terminal instead:</p>
-        <ol class="space-y-2 list-decimal list-inside text-violet-800">
-          <li>In the terminal, run:</li>
-        </ol>
-        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-2 overflow-x-auto">touch setup-storefront-next.sh</pre>
-        <ol start="2" class="space-y-2 list-decimal list-inside text-violet-800">
-          <li>Press <code class="bg-white px-1.5 py-0.5 rounded text-xs">Ctrl+P</code> or <code class="bg-white px-1.5 py-0.5 rounded text-xs">Cmd+P</code>.</li>
-          <li>Type: <code class="bg-white px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code></li>
-          <li>Press Enter, paste the script below, and save.</li>
-          <li>Run:</li>
-        </ol>
-        <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mt-2 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
-      </div>
+      <p>&nbsp;</p>
 
       <p class="text-sm font-semibold mb-2">Setup script</p>
       <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto overflow-y-auto max-h-[14rem]">bash &lt;&lt;'SETUP'
@@ -408,7 +447,7 @@ pnpm:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/pnpm</pre>
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 4: STOREFRONT OVERVIEW -->
+<!-- EXERCISE 3: CONFIGURE AND DEPLOY YOUR FIRST STOREFRONT -->
 <!-- ============================================================ -->
 <section id="ex-3" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -421,10 +460,6 @@ pnpm:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/pnpm</pre>
     <p class="text-sm text-sf-blue/80">Your instructor will demonstrate how a Storefront Next project is created and deployed to Managed Runtime. <strong>Your storefronts have been pre-created</strong> — no need to wait for provisioning.</p>
     <h3 class="font-semibold text-sf-blue mt-4 mb-2">Goal</h3>
     <p class="text-sm text-sf-blue/80">Understand the storefront creation and deployment process. See how SLAS credentials, environment configuration, and eCDN work together.</p>
-  </div>
-
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6 text-sm">
-    <strong class="text-yellow-800">👁 Watch &amp; Learn:</strong> This is an <strong>instructor-led demonstration</strong>. Follow along on screen — you do not need to perform these steps yourself. Your storefront is already provisioned and ready.
   </div>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">What the Instructor Will Demonstrate</h3>
@@ -519,7 +554,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 5: LOCAL SETUP -->
+<!-- EXERCISE 4: PROJECT SETUP -->
 <!-- ============================================================ -->
 <section id="ex-4" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -549,7 +584,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">cp env.txt sfcc-storefront/.env</pre>
 
   <ol start="5" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the project folder name specified during the storefront creation. Then open a new terminal window to continue.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">sfcc-storefront</code> folder (the default project folder name when accepting defaults during creation). Then open a new terminal window to continue.</span></li>
   </ol>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Install Dependencies &amp; Start</h3>
@@ -576,7 +611,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="view-site-tabs">
     <div class="flex border-b border-gray-200 bg-gray-50">
-      <button onclick="switchTab('view-site-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes Codebuilder</button>
+      <button onclick="switchTab('view-site-tabs', 'vibes')" data-tab="vibes" class="tab-btn active flex-1 px-4 py-3 text-sm font-medium text-path-vibes border-b-3 border-transparent hover:bg-violet-50 transition">✨ Path A — Agentforce Vibes</button>
       <button onclick="switchTab('view-site-tabs', 'claude')" data-tab="claude" class="tab-btn flex-1 px-4 py-3 text-sm font-medium text-path-claude border-b-3 border-transparent hover:bg-amber-50 transition">🤖 Path B — Claude Code</button>
     </div>
 
@@ -596,7 +631,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Hover over this URL and click <strong>"follow link"</strong> to go to your site.</span></li>
       </ol>
 
-      <p class="text-sm mb-3 mt-4">On your first request, the codebuilder environment is not allowed, so you'll see an error like this:</p>
+      <p class="text-sm mb-3 mt-4">On your first request, the Agentforce Vibes environment is not allowed, so you'll see an error like this:</p>
       <pre class="bg-gray-900 text-red-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">Blocked request. This host ("e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.code-builder.platform.salesforce.com") is not allowed.
 To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.code-builder.platform.salesforce.com" to `server.allowedHosts` in vite.config.js.</pre>
 
@@ -615,7 +650,7 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 6: REVIEW KEY ELEMENTS -->
+<!-- EXERCISE 5: REVIEW KEY ELEMENTS -->
 <!-- ============================================================ -->
 <section id="ex-5" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -690,7 +725,7 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 7: UPDATE STOREFRONT -->
+<!-- EXERCISE 6: UPDATE YOUR STOREFRONT -->
 <!-- ============================================================ -->
 <section id="ex-6" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -725,22 +760,20 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Update the Site Logo</h3>
   <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Go to <a href="https://logoipsum.com/" class="text-sf-accent underline font-semibold">https://logoipsum.com/</a> and download a logo of your choice. <strong>Horizontal logos will present better</strong> in the space reserved in the header.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Go to <a href="https://logoipsum.com/" class="text-sf-accent underline font-semibold">https://logoipsum.com/</a> and download a logo of your choice as an <strong>SVG</strong> (the download options include multiple formats — the import below assumes SVG). <strong>Horizontal logos will present better</strong> in the space reserved in the header.</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Save the downloaded logo file into your project's static assets folder at <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">public/images/custom-logo.svg</code>.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Navigate to <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">src/components/header/index.tsx</code> — the header component.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Add the import at the bottom of the import section:</span></li>
   </ol>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">import customlogo from '/images/custom-logo.svg';</pre>
-  <ol start="5" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Find the <strong>second</strong> <code>&lt;img&gt;</code> tag in the return section and replace it with:</span></li>
-  </ol>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">&lt;img
+
+  <p class="text-sm mb-3">Give the command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">In src/components/header/index.tsx, import the logo from '/images/custom-logo.svg' as customlogo. Then replace the &lt;img&gt; tag that renders the site logo for the desktop/wide viewport (the second &lt;img&gt; tag in the returned JSX) with:
+&lt;img
     src={customlogo}
     alt={t('logoAlt')}
     className="h-3 lg:h-4 w-auto [filter:var(--header-logo-filter)]"
 /&gt;</pre>
-  <ol start="6" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">6</span><span>Navigate to the local server to see the updated site logo.</span></li>
+
+  <ol start="3" class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Navigate to the local server to see the updated site logo.</span></li>
   </ol>
 
   <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4 mb-6 text-sm">
@@ -759,7 +792,7 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 8: CUSTOMIZE STOREFRONT -->
+<!-- EXERCISE 7: CUSTOMIZE YOUR STOREFRONT -->
 <!-- ============================================================ -->
 <section id="ex-7" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -790,7 +823,7 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 9: AI-ASSISTED DEVELOPMENT WALKTHROUGH -->
+<!-- EXERCISE 8: AI-ASSISTED DEVELOPMENT WALKTHROUGH -->
 <!-- ============================================================ -->
 <section id="ex-8" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -873,7 +906,7 @@ Strap Style: Top handle, Adjustable crossbody strap, Chain strap, Detachable str
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 10: PDP CUSTOMIZATION -->
+<!-- EXERCISE 9: PDP CUSTOMIZATION -->
 <!-- ============================================================ -->
 <section id="ex-9" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -923,7 +956,7 @@ Then import and add it to src/components/product-view/product-info.tsx right aft
 </section>
 
 <!-- ============================================================ -->
-<!-- EXERCISE 11: PROMO CALLOUT — PAGE DESIGNER ROUND-TRIP (OPTIONAL) -->
+<!-- EXERCISE 10: PROMO CALLOUT — PAGE DESIGNER ROUND-TRIP (OPTIONAL) -->
 <!-- ============================================================ -->
 <section id="ex-10" class="mb-16 page-break">
   <div class="flex items-center gap-3 mb-2">
@@ -1302,6 +1335,35 @@ document.querySelectorAll('pre').forEach(pre => {
     });
   });
   wrapper.appendChild(btn);
+});
+
+// Cap content images at 200px tall, with a magnifying-glass button to view full size
+const contentImages = document.querySelectorAll('img');
+
+const lightbox = document.createElement('div');
+lightbox.id = 'img-lightbox';
+const lightboxImg = document.createElement('img');
+lightbox.appendChild(lightboxImg);
+lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+document.body.appendChild(lightbox);
+
+contentImages.forEach(img => {
+  const frame = document.createElement('div');
+  frame.className = 'img-frame ' + img.className;
+  img.className = 'w-full h-full';
+  img.parentNode.insertBefore(frame, img);
+  frame.appendChild(img);
+
+  const zoomBtn = document.createElement('button');
+  zoomBtn.className = 'img-zoom-btn';
+  zoomBtn.setAttribute('aria-label', 'Expand image');
+  zoomBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>';
+  zoomBtn.addEventListener('click', () => {
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+    lightbox.classList.add('active');
+  });
+  frame.appendChild(zoomBtn);
 });
 
 // Smooth scroll for nav links
