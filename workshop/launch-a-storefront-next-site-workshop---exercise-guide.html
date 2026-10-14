@@ -137,7 +137,7 @@
 <section class="text-center py-16 mb-12">
   <div class="inline-block bg-sf-cloud text-sf-blue text-sm font-semibold px-4 py-1.5 rounded-full mb-6">Exercise Guide</div>
   <h1 class="text-5xl lg:text-6xl font-extrabold text-sf-blue leading-tight mb-4">Launch a Storefront Next<br>Site Workshop</h1>
-  <p class="text-xl text-sf-gray mb-8">Dreamforce 2026 Workshop — B2C201</p>
+  <p class="text-xl text-sf-gray mb-8">2026 Workshop — B2C201</p>
   <div class="flex flex-wrap justify-center gap-3 text-sm">
     <span class="bg-violet-100 text-violet-800 px-3 py-1 rounded-full font-medium">✨ Agentforce Vibes</span>
     <span class="bg-amber-100 text-amber-800 px-3 py-1 rounded-full font-medium">🤖 Claude Code</span>
@@ -273,10 +273,10 @@ volta install pnpm</pre>
     <!-- AGENTFORCE VIBES TAB -->
     <div class="tab-content active p-6" data-tab="vibes">
       <h4 class="font-semibold text-path-vibes mb-3">Agentforce Vibes Setup</h4>
-      <p class="text-sm mb-4">This path runs entirely in the browser using Agentforce Vibes — no local installs required to get started.</p>
+      <p class="text-sm mb-4">This path runs entirely in the browser using Agentforce Vibes — no local installs required to get started. Visit <a href="https://orgfarm.salesforce.com/signup" target="_blank" rel="noopener" class="text-sf-blue underline">https://orgfarm.salesforce.com/signup</a> to get your virtual development environment for the workshop. The instructor will provide your Event Code.</p>
       <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Log in to the Salesforce org provided to you for this workshop. Trust files in the folder if prompted to do so.</span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Launch <strong>Agentforce Vibes</strong> from the Setup menu in the top-right corner.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Log in to the Salesforce org provided to you for this workshop.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Launch <strong>Agentforce Vibes</strong> from the Setup menu in the top-right corner. Check the box and trust files in the folder if prompted to do so.</span></li>
       </ol>
 
       <img src="images/vibes-setup-menu.png" alt="Setup menu open in the top-right corner, showing the Agentforce Vibes option in the list" class="rounded-lg border border-gray-200 mb-4 w-full">
@@ -307,14 +307,7 @@ volta install pnpm</pre>
           <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-2 overflow-x-auto">touch setup-storefront-next.sh</pre>
         </span></li>
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Open the newly created file through Explorer or by Pressing <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Ctrl+P</code> or <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Cmd+P</code> and then type "setup" to find the newly created file. Then Copy and Paste the Setup script (below) into the newly created file</span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run:</span></li>
       </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify: <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">node --version &amp;&amp; pnpm --version</code></span></li>
-      </ol>
-
-      <p>&nbsp;</p>
 
       <p class="text-sm font-semibold mb-2">Setup script</p>
       <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto overflow-y-auto max-h-[14rem]">bash &lt;&lt;'SETUP'
@@ -391,13 +384,19 @@ printf "node:  %s\n" "$(command -v node)"
 printf "pnpm:  %s\n" "$(command -v pnpm)"
 SETUP</pre>
 
+      <ol start="3" class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run:</span></li>
+      </ol>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
+      <ol start="4" class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify:</span></li>
+      </ol>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">node --version &amp;&amp; pnpm --version</pre>
+
       <p class="text-sm mb-2">Verify the output looks like this:</p>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">Setup complete.
-Node:  v24.21.0
-npm:   11.19.0
-pnpm:  10.28.0
-node:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/node
-pnpm:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/pnpm</pre>
+      <div class="bg-gray-100 text-gray-800 rounded-lg p-4 text-sm mb-4 overflow-x-auto font-mono whitespace-pre">codebuilder@ip-10-135-66-189:~/dx-project$ node --version &amp;&amp; pnpm --version
+v24.21.0
+10.28.0</div>
     </div>
 
   </div>
@@ -470,7 +469,7 @@ pnpm:  /home/codebuilder/.nvm/versions/node/v24.21.0/bin/pnpm</pre>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Your Environment Variables Reference</h3>
   <ol class="space-y-3 text-sm mb-4">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Login to Business Manager and go to the Storefronts page. Multiple storefronts have been pre-generated to save time in the workshop. Select the storefront that corresponds with the one you have been assigned.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Login to <a href="https://zzpm-057.dx.commercecloud.salesforce.com/on/demandware.store/Sites-Site" target="_blank" rel="noopener" class="text-sf-blue underline">Business Manager</a> and go to the Storefronts page. Multiple storefronts have been pre-generated to save time in the workshop. Select the storefront that corresponds with the one you have been assigned.</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Step 1: Click <strong>Download .env</strong></span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Step 2: Click <strong>Download .csv</strong><br><strong class="text-amber-700">NOTE:</strong> You can only download the csv file one time. Be sure that you don't lose this file. The SLAS secret will only appear in the first file that you download. Since we downloaded .env first, the SLAS secret will be missing from the .csv file.</span></li>
   </ol>
@@ -588,7 +587,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 1: Create Your Storefront Project</h3>
 
   <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>First, copy your downloaded <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> file into the root of your current project (drag and drop).</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>First, copy your downloaded <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> file into the root of your current project (drag &amp; drop or copy &amp; paste).</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Now create a storefront with this command:</span></li>
   </ol>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">pnpm dlx @salesforce/storefront-next-dev create-storefront</pre>
@@ -600,7 +599,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">cp env.txt sfcc-storefront/.env</pre>
 
   <ol start="5" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">sfcc-storefront</code> folder (the default project folder name when accepting defaults during creation). Then open a new terminal window to continue.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">sfcc-storefront</code> folder (the default project folder name when accepting defaults during creation). Then open a new terminal window to continue by selecting the hamburger menu (top left corner) and then selecting Terminal &gt; New Terminal.</span></li>
   </ol>
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Install Dependencies &amp; Start</h3>
