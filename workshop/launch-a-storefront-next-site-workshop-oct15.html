@@ -298,105 +298,18 @@ volta install pnpm</pre>
 
       <h5 class="font-semibold text-path-vibes mt-6 mb-2">Launch a Terminal and Install Node.js / pnpm</h5>
       <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Create <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">setup-storefront-next.sh</code> using one of the following options:
-          <ol type="A" class="mt-2 space-y-2 list-inside">
-            <li><strong>Option A:</strong> Select the Explorer (two overlapping documents in the left nav), right-click in the Explorer window, and select New File.</li>
-            <li><strong>Option B:</strong> Select the hamburger menu (top left corner), then select File &gt; New File.</li>
-            <li><strong>Option C:</strong> In the terminal, run:</li>
-          </ol>
-          <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-2 overflow-x-auto">touch setup-storefront-next.sh</pre>
-        </span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Open the newly created file through Explorer or by Pressing <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Ctrl+P</code> or <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Cmd+P</code> and then type "setup" to find the newly created file. Then Copy and Paste the Setup script (below) into the newly created file</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Run:</span></li>
       </ol>
-
-      <p class="text-sm font-semibold mb-2">Setup script</p>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto overflow-y-auto max-h-[14rem]">bash &lt;&lt;'SETUP'
-set -Eeuo pipefail
-
-trap 'printf "\nERROR: Setup failed at line %s.\n" "$LINENO" &gt;&amp;2' ERR
-
-NVM_VERSION="v0.40.3"
-NODE_VERSION="24"
-PNPM_VERSION="10.28.0"
-NVM_DIR="$HOME/.nvm"
-BASHRC_LOCAL="$HOME/.bashrc.local"
-
-printf "\n[1/5] Installing NVM %s...\n" "$NVM_VERSION"
-
-if [ ! -s "$NVM_DIR/nvm.sh" ]; then
-    PROFILE=/dev/null curl -fsSL \
-        "https://raw.githubusercontent.com/nvm-sh/nvm/$NVM_VERSION/install.sh" |
-        PROFILE=/dev/null bash
-else
-    printf "NVM is already installed at %s.\n" "$NVM_DIR"
-fi
-
-printf "\n[2/5] Loading NVM...\n"
-
-unset NPM_CONFIG_PREFIX
-export NVM_DIR
-. "$NVM_DIR/nvm.sh"
-
-printf "\n[3/5] Installing Node.js %s...\n" "$NODE_VERSION"
-
-nvm install "$NODE_VERSION"
-nvm use "$NODE_VERSION"
-nvm alias default "$NODE_VERSION"
-
-printf "\n[4/5] Installing pnpm %s...\n" "$PNPM_VERSION"
-
-npm install --global "pnpm@$PNPM_VERSION"
-
-printf "\n[5/5] Configuring future terminal sessions...\n"
-
-touch "$BASHRC_LOCAL"
-
-if ! grep -q '# storefront-next-nvm:start' "$BASHRC_LOCAL"; then
-    cat &gt;&gt; "$BASHRC_LOCAL" &lt;&lt;'PROFILE'
-
-# storefront-next-nvm:start
-export NVM_DIR="$HOME/.nvm"
-
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-    unset NPM_CONFIG_PREFIX
-    . "$NVM_DIR/nvm.sh"
-    nvm use --silent default
-fi
-
-if [ -s "$NVM_DIR/bash_completion" ]; then
-    . "$NVM_DIR/bash_completion"
-fi
-# storefront-next-nvm:end
-PROFILE
-    printf "Added NVM initialization to %s.\n" "$BASHRC_LOCAL"
-else
-    printf "NVM initialization already exists in %s.\n" "$BASHRC_LOCAL"
-fi
-
-# Confirm that the saved profile can be loaded.
-. "$BASHRC_LOCAL"
-
-printf "\nSetup complete.\n"
-printf "Node:  %s\n" "$(node --version)"
-printf "npm:   %s\n" "$(npm --version)"
-printf "pnpm:  %s\n" "$(pnpm --version)"
-printf "node:  %s\n" "$(command -v node)"
-printf "pnpm:  %s\n" "$(command -v pnpm)"
-SETUP</pre>
-
-      <ol start="3" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Run:</span></li>
+      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">curl -fsSL https://paulrolson18.github.io/df26/workshop/setup-storefront-next.sh | bash &amp;&amp; source ~/.bashrc.local</pre>
+      <ol start="2" class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Verify the output looks like this:</span></li>
       </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">bash setup-storefront-next.sh &amp;&amp; source ~/.bashrc.local</pre>
-      <ol start="4" class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Verify:</span></li>
-      </ol>
-      <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">node --version &amp;&amp; pnpm --version</pre>
-
-      <p class="text-sm mb-2">Verify the output looks like this:</p>
-      <div class="bg-gray-100 text-gray-800 rounded-lg p-4 text-sm mb-4 overflow-x-auto font-mono whitespace-pre">codebuilder@ip-10-135-66-189:~/dx-project$ node --version &amp;&amp; pnpm --version
-v24.21.0
-10.28.0</div>
+      <div class="bg-gray-100 text-gray-800 rounded-lg p-4 text-sm mb-4 overflow-x-auto font-mono whitespace-pre">Setup complete.
+Node:  v24.22.0
+npm:   11.19.1
+pnpm:  10.28.0
+node:  /home/codebuilder/.nvm/versions/node/v24.22.0/bin/node
+pnpm:  /home/codebuilder/.nvm/versions/node/v24.22.0/bin/pnpm</div>
     </div>
 
   </div>
@@ -469,7 +382,7 @@ v24.21.0
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Your Environment Variables Reference</h3>
   <ol class="space-y-3 text-sm mb-4">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Login to <a href="https://zzpm-057.dx.commercecloud.salesforce.com/on/demandware.store/Sites-Site" target="_blank" rel="noopener" class="text-sf-blue underline">Business Manager</a> and go to the Storefronts page. Multiple storefronts have been pre-generated to save time in the workshop. Select the storefront that corresponds with the one you have been assigned.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Login to <a href="https://zzpm-054.dx.commercecloud.salesforce.com/on/demandware.store/Sites-Site" target="_blank" rel="noopener" class="text-sf-blue underline">Business Manager</a> and go to the Storefronts page. Multiple storefronts have been pre-generated to save time in the workshop. Select the storefront that corresponds with the one you have been assigned.</span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Step 1: Click <strong>Download .env</strong></span></li>
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Step 2: Click <strong>Download .csv</strong><br><strong class="text-amber-700">NOTE:</strong> You can only download the csv file one time. Be sure that you don't lose this file. The SLAS secret will only appear in the first file that you download. Since we downloaded .env first, the SLAS secret will be missing from the .csv file.</span></li>
   </ol>
@@ -481,6 +394,9 @@ v24.21.0
     <strong class="text-sf-blue">💡 Local user IDs:</strong> <span class="text-sf-blue/80">If you are using a local user ID to log in to Business Manager, you will not see Environment information. This information requires Account Manager permissions.</span>
   </div>
 
+  <details class="mb-4 border border-gray-200 rounded-lg">
+    <summary class="cursor-pointer select-none px-4 py-3 font-semibold text-sf-blue bg-gray-50 rounded-lg">Developer Configuration Files Setup</summary>
+    <div class="p-4">
   <p class="text-sm font-semibold mb-2"><code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">dw.json</code></p>
   <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm mb-4 overflow-x-auto">{
   "configs": [
@@ -565,6 +481,8 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
       </tbody>
     </table>
   </div>
+    </div>
+  </details>
 
 </section>
 
@@ -594,35 +512,11 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 
   <ol start="3" class="space-y-3 text-sm">
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Accept the defaults.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Now copy your <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> to replace the generated <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code> with defaults:</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">4</span><span>Copy your <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">env.txt</code> over the generated <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">.env</code>, move into the new project folder, install the packages, and start the local development server:</span></li>
   </ol>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">cp env.txt sfcc-storefront/.env</pre>
+  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3 overflow-x-auto">cp env.txt sfcc-storefront/.env &amp;&amp; cd sfcc-storefront &amp;&amp; pnpm install &amp;&amp; pnpm dev</pre>
 
-  <ol start="5" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">5</span><span>Open the new storefront project we created. Hamburger menu, <strong>File &gt; Open Folder</strong> and select the <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">sfcc-storefront</code> folder (the default project folder name when accepting defaults during creation). Then open a new terminal window to continue by selecting the hamburger menu (top left corner) and then selecting Terminal &gt; New Terminal.</span></li>
-  </ol>
-
-  <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Install Dependencies &amp; Start</h3>
-  <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Install pnpm packages:</span></li>
-  </ol>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">pnpm install</pre>
-
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4 text-sm">
-    <strong class="text-yellow-800">⚠️ Troubleshooting:</strong> If you see <code class="text-xs">ERR_PNPM_IGNORED_BUILDS</code> or <code class="text-xs">Command failed with exit code 1</code>:
-    <ol class="mt-2 ml-4 space-y-1">
-      <li>a. Run <code class="bg-white px-1.5 py-0.5 rounded text-xs">pnpm approve-builds</code>, selecting all packages</li>
-      <li>b. Press 'a' to select all, enter to submit, yes to approve</li>
-      <li>c. Run <code class="bg-white px-1.5 py-0.5 rounded text-xs">pnpm install</code> again</li>
-    </ol>
-  </div>
-
-  <ol start="2" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Start the local development server:</span></li>
-  </ol>
-  <pre class="bg-gray-900 text-green-400 rounded-lg p-4 text-sm my-3">pnpm dev</pre>
-
-  <h3 class="text-lg font-semibold text-sf-blue mt-10 mb-3">Task 3: View Your Site</h3>
+  <h3 class="text-lg font-semibold text-sf-blue mt-10 mb-3">Task 2: View Your Site</h3>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden mb-6" id="view-site-tabs">
     <div class="flex border-b border-gray-200 bg-gray-50">
