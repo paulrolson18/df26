@@ -775,17 +775,12 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Update the Site Logo</h3>
   <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Go to <a href="https://logoipsum.com/" class="text-sf-accent underline font-semibold">https://logoipsum.com/</a> and download a logo of your choice as an <strong>SVG</strong> (the download options include multiple formats — the import below assumes SVG). <strong>Horizontal logos will present better</strong> in the space reserved in the header.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Save the downloaded logo file into your project's static assets folder at <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">public/images/custom-logo.svg</code>.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Go to <a href="https://logoipsum.com/" target="_blank" rel="noopener" class="text-sf-accent underline font-semibold">https://logoipsum.com/</a> and download a logo of your choice as an <strong>SVG</strong> (the download options include multiple formats — the import below assumes SVG). <strong>Horizontal logos will present better</strong> in the space reserved in the header.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Copy the downloaded logo file into your project's root folder.</span></li>
   </ol>
 
   <p class="text-sm mb-3">Give the command:</p>
-  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">In src/components/header/index.tsx, import the logo from '/images/custom-logo.svg' as customlogo. Then replace the &lt;img&gt; tag that renders the site logo for the desktop/wide viewport (the second &lt;img&gt; tag in the returned JSX) with:
-&lt;img
-    src={customlogo}
-    alt={t('logoAlt')}
-    className="h-3 lg:h-4 w-auto [filter:var(--header-logo-filter)]"
-/&gt;</pre>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">update the logo of my site to use the svg file in the root of my project</pre>
 
   <ol start="3" class="space-y-3 text-sm">
     <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Navigate to the local server to see the updated site logo.</span></li>
