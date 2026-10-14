@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SFCC Config Generator</title>
+    <style>
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            padding: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+            counter-reset: field-counter;
+        }
+
+        h1 { color: #1a2b4a; margin-bottom: 4px; }
+        h1 span { color: #0070d2; }
+
+        .subtitle { color: #666; font-size: 14px; margin-bottom: 28px; }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #dde2ea;
+            padding-bottom: 6px;
+            margin-top: 32px;
+            margin-bottom: 14px;
+        }
+
+        /* ── Legend bar ────────────────────────────────── */
+        .legend {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 12px;
+            color: #555;
+        }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .legend-swatch {
+            display: inline-block;
+            width: 12px; height: 12px;
+            border-radius: 3px;
+        }
+        .sw-sample  { background: #fef3c7; border: 1px solid #fcd34d; }
+        .sw-real    { background: #f0fdf4; border: 1px solid #86efac; }
+
+        /* ── Form card ─────────────────────────────────── */
+        .form-card {
+            background: white;
+            border-radius: 10px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+
+        .form-grid {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 0 24px;
+            align-items: start;
+            padding: 12px 4px;
+            border-bottom: 1px solid #f0f2f5;
+            counter-increment: field-counter;
+        }
+        .form-group:last-child { border-bottom: none; }
+
+        .form-label-col { padding-top: 3px; }
+
+        .form-label-col label::before {
+            content: counter(field-counter) ". ";
+            color: #94a3b8;
+            font-weight: 700;
+            font-size: 12px;
+            margin-right: 1px;
+            flex-shrink: 0;
+        }
+
+        .form-input-col {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #555;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        label .badge {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 1px 6px;
+            border-radius: 10px;
+            text-transform: none;
+            letter-spacing: 0;
+        }
+        .badge-am   { background: #fef08a; color: #713f12; }
+        .badge-slas { background: #67e8f9; color: #164e63; }
+        .badge-env  { background: #bbf7d0; color: #14532d; }
+        .badge-dw   { background: #fed7aa; color: #7c2d12; }
+        .badge-both { background: #e9d5ff; color: #4c1d95; }
+
+        /* ── Field help text (always visible) ─────────── */
+        .field-help {
+            display: block;
+            font-size: 11px;
+            font-weight: 400;
+            color: #64748b;
+            text-transform: none;
+            letter-spacing: 0;
+            line-height: 1.5;
+        }
+
+        /* ── Inputs ────────────────────────────────────── */
+        input[type="text"],
+        textarea {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            padding: 9px 11px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 6px;
+            background: #f9fafb;
+            color: #1a2b4a;
+            transition: border-color 0.15s, box-shadow 0.15s, background 0.15s, color 0.15s;
+            width: 100%;
+        }
+        input[type="text"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0070d2;
+            box-shadow: 0 0 0 3px rgba(0,112,210,0.12);
+        }
+
+        /* Sample text shown as placeholder */
+        input::placeholder,
+        textarea::placeholder {
+            color: #c0c8d4;
+            font-style: italic;
+            opacity: 1;
+        }
+
+        /* Real value entered */
+        input.is-real,
+        textarea.is-real {
+            background: #f0fdf4;
+            color: #14532d;
+            border-color: #86efac;
+        }
+        input.is-real:focus,
+        textarea.is-real:focus {
+            border-color: #22c55e;
+            box-shadow: 0 0 0 3px rgba(34,197,94,0.15);
+        }
+
+        /* Validation error */
+        input.is-error,
+        textarea.is-error {
+            background: #fff5f5;
+            color: #7f1d1d;
+            border-color: #f87171;
+        }
+        input.is-error:focus,
+        textarea.is-error:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 3px rgba(239,68,68,0.15);
+        }
+        .field-error {
+            font-size: 11px;
+            color: #dc2626;
+            font-weight: 600;
+            display: none;
+            margin-top: 2px;
+        }
+        .field-error.visible { display: block; }
+
+        /* Auto-derived field */
+        input.is-derived {
+            background: #eff6ff;
+            color: #1e40af;
+            border-color: #93c5fd;
+            font-style: italic;
+        }
+        input.is-derived:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.15);
+            font-style: normal;
+        }
+        .field-hint-derived {
+            font-size: 11px;
+            color: #3b82f6;
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        textarea { min-height: 100px; resize: vertical; line-height: 1.5; }
+
+        .hint { font-size: 11px; color: #9ca3af; font-family: 'Courier New', Courier, monospace; }
+
+        /* ── Multiselect chips ─────────────────────────── */
+        .chip-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+            padding: 8px 10px;
+            border: 1.5px solid #d1d5db;
+            border-radius: 6px;
+            background: #f9fafb;
+            min-height: 42px;
+        }
+        .chip-group.has-selection {
+            background: #f0fdf4;
+            border-color: #86efac;
+        }
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1.5px solid #d1d5db;
+            background: #fff;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.12s, border-color 0.12s, color 0.12s;
+            color: #555;
+        }
+        .chip:hover { border-color: #94a3b8; background: #f1f5f9; }
+        .chip.selected {
+            background: #0070d2;
+            border-color: #0070d2;
+            color: #fff;
+            font-weight: 700;
+        }
+        .chip.selected .chip-check { display: inline; }
+        .chip-check { display: none; font-size: 10px; }
+
+        /* ── Input group cards ─────────────────────────── */
+        .group-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px 24px 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+            margin-bottom: 20px;
+        }
+
+        .group-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #fff;
+            padding: 8px 14px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+        }
+        .group-title.bm-group  { background: #1e40af; }
+        .group-title.mrt-group { background: #065f46; }
+
+        .group-title .group-icon {
+            font-size: 16px;
+            line-height: 1;
+        }
+
+        /* ── Toggle switch ────────────────────────────── */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        .toggle-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: #374151;
+        }
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: #d1d5db;
+            border-radius: 24px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-track::before {
+            content: '';
+            position: absolute;
+            width: 18px; height: 18px;
+            left: 3px; top: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.2s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+        .toggle-switch input:checked + .toggle-track { background: #0070d2; }
+        .toggle-switch input:checked + .toggle-track::before { transform: translateX(20px); }
+
+        .hybrid-fields { display: none; }
+        .hybrid-fields.visible { display: contents; }
+
+        .hybrid-group { background: #f8faff; border: 1.5px solid #c7d7f5; }
+
+        /* ── OCAPI highlight box ───────────────────────── */
+        .ocapi-highlight {
+            display: inline-block;
+            border: 2px solid #ef4444;
+            border-radius: 5px;
+            padding: 2px 8px;
+            background: rgba(239, 68, 68, 0.08);
+            white-space: pre;
+        }
+
+        /* ── Output section ────────────────────────────── */
+        .output-section { margin-top: 36px; }
+
+        .section-card {
+            background: white;
+            border-radius: 10px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            margin-bottom: 20px;
+        }
+
+        .cred-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 9px 10px;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .cred-row:last-child { border-bottom: none; }
+
+        .cred-label { font-weight: 700; font-size: 13px; flex: 0 0 240px; }
+
+        .cred-value-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+            justify-content: flex-end;
+        }
+
+        .value-pill {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 5px;
+            word-break: break-all;
+            text-align: right;
+        }
+        .hl-yellow  { background: #fef08a; color: #000; }
+        .hl-green   { background: #86efac; color: #000; }
+        .hl-cyan    { background: #67e8f9; color: #000; }
+        .hl-magenta { background: #f472b6; color: #000; }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .file-title { font-weight: 700; font-size: 14px; color: #2c3e50; }
+
+        pre {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 13px;
+            background: #1e1e2e;
+            color: #cdd6f4;
+            padding: 16px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 0;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        .copy-btn {
+            background: #e2e8f0;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .copy-btn:hover  { background: #cbd5e1; }
+        .copy-btn.copied { background: #22c55e; color: #fff; }
+
+        /* ── Import / Export toolbar ───────────────────── */
+        .io-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            background: white;
+            border: 1.5px solid #dde2ea;
+            border-radius: 10px;
+            padding: 12px 18px;
+            margin-bottom: 24px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+        }
+        .io-toolbar .io-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-right: 4px;
+        }
+        .io-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 16px;
+            border-radius: 6px;
+            border: none;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, transform 0.1s;
+        }
+        .io-btn:active { transform: scale(0.97); }
+        .io-btn.export {
+            background: #1e40af;
+            color: #fff;
+        }
+        .io-btn.export:hover { background: #1d3a9e; }
+        .io-btn.import {
+            background: #f0fdf4;
+            color: #14532d;
+            border: 1.5px solid #86efac;
+        }
+        .io-btn.import:hover { background: #dcfce7; }
+        .io-btn.clear {
+            background: #fef2f2;
+            color: #991b1b;
+            border: 1.5px solid #fca5a5;
+        }
+        .io-btn.clear:hover { background: #fee2e2; }
+        .io-btn.deploy {
+            background: #0070d2;
+            color: #fff;
+            border: none;
+        }
+        .io-btn.deploy:hover { background: #005fb3; }
+        .io-btn.deploy:disabled {
+            background: #94a3b8;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ── Export-to-project modal ───────────────────── */
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 500;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-backdrop.open { display: flex; }
+        .modal {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            width: 480px;
+            max-width: 95vw;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+        }
+        .modal h3 {
+            margin: 0 0 6px;
+            font-size: 17px;
+            color: #1a2b4a;
+        }
+        .modal .modal-sub {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+        .modal .file-plan {
+            background: #f8faff;
+            border: 1px solid #dde2ea;
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            line-height: 1.8;
+            color: #334155;
+        }
+        .modal .file-plan .fp-root { color: #0070d2; font-weight: 700; }
+        .modal .file-plan .fp-file { color: #14532d; }
+        .modal .file-plan .fp-warn { color: #b45309; font-style: italic; }
+        .modal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+        }
+        .modal-actions .btn-cancel {
+            padding: 8px 18px;
+            border-radius: 6px;
+            border: 1.5px solid #d1d5db;
+            background: white;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            color: #555;
+        }
+        .modal-actions .btn-cancel:hover { background: #f1f5f9; }
+        .modal-actions .btn-confirm {
+            padding: 8px 20px;
+            border-radius: 6px;
+            border: none;
+            background: #0070d2;
+            color: white;
+            font-family: Arial, sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        .modal-actions .btn-confirm:hover { background: #005fb3; }
+        .modal .compat-warn {
+            font-size: 11px;
+            color: #b45309;
+            background: #fffbeb;
+            border: 1px solid #fcd34d;
+            border-radius: 5px;
+            padding: 6px 10px;
+            margin-bottom: 14px;
+        }
+        .io-toast {
+            font-size: 12px;
+            color: #22c55e;
+            font-weight: 700;
+            opacity: 0;
+            transition: opacity 0.3s;
+            margin-left: 4px;
+        }
+        .io-toast.show { opacity: 1; }
+
+        @media (max-width: 700px) {
+            .form-group { grid-template-columns: 1fr; }
+            .cred-label { flex: 0 0 160px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+
+<h1>SFCC <span>Config Generator</span></h1>
+
+<div class="io-toolbar">
+    <span class="io-label">Config file:</span>
+    <button class="io-btn export" onclick="exportConfig()">&#8659; Export JSON</button>
+    <button class="io-btn import" onclick="document.getElementById('import-file').click()">&#8657; Import JSON</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importConfig(event)">
+    <button class="io-btn deploy" id="btn-deploy" onclick="openDeployModal()">&#128194; Export to Project</button>
+    <button class="io-btn clear" onclick="clearConfig()">&#10005; Clear all</button>
+    <span class="io-toast" id="io-toast"></span>
+</div>
+
+<!-- ── Export-to-project modal ─────────────────────── -->
+<div class="modal-backdrop" id="deploy-modal">
+    <div class="modal">
+        <h3>&#128194; Export to Project</h3>
+        <p class="modal-sub">Select your project root folder. Files will be written as shown below.</p>
+        <div id="modal-compat-warn" class="compat-warn" style="display:none">
+            ⚠ Your browser does not support the File System Access API. Use Chrome or Edge to write files directly.
+        </div>
+        <div class="file-plan" id="deploy-plan">
+            <span class="fp-root">📁 &lt;project-root&gt;/</span><br>
+            &nbsp;&nbsp;<span class="fp-file">📄 .env</span><br>
+            &nbsp;&nbsp;<span class="fp-file">📄 dw.json</span><br>
+            &nbsp;&nbsp;<span class="fp-root">📁 cartridges/</span><br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="fp-file">📄 dw.json</span>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" onclick="closeDeployModal()">Cancel</button>
+            <button class="btn-confirm" id="btn-deploy-confirm" onclick="runDeploy()">Choose Folder &amp; Write Files</button>
+        </div>
+    </div>
+</div>
+
+<!-- ═══════════════════ INPUTS ═══════════════════ -->
+
+<!-- Group 1: Business Manager -->
+<div class="group-card">
+    <div class="group-title bm-group">
+        <span class="group-icon">🏢</span>
+        Things to get from Business Manager (Note:All values are saved in Browser cache))
+    </div>
+    <div class="form-grid">
+
+        <!-- 1. Hostname -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Hostname</label>
+                <span class="field-help">The BM hostname — e.g. zzpe-091.dx.commercecloud.salesforce.com (no https:// or trailing /)</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="hostname">
+                <span class="field-error" id="err-hostname"></span>
+            </div>
+        </div>
+
+        <!-- 2. Email -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Account Manager Email</label>
+                <span class="field-help">The email you use to log in to Account Manager (account.demandware.com)</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="email">
+                <span class="field-error" id="err-email"></span>
+            </div>
+        </div>
+
+        <!-- 3. Short Code -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Short Code</label>
+                <span class="field-help">BM → Admin → Global Preferences → Salesforce Commerce API Settings → Short Code</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="short-code">
+                <span class="field-error" id="err-short-code"></span>
+            </div>
+        </div>
+
+        <!-- 4. Organization ID -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Organization ID</label>
+                <span class="field-help">BM → Admin → Global Preferences → Salesforce Commerce API Settings → Organization ID (format: f_ecom_&lt;realm&gt;_&lt;instance&gt;). </span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="org-id">
+                <span class="field-hint-derived" id="hint-org-id" style="display:none">⚡ Auto-derived from hostname — edit if needed</span>
+                <span class="field-error" id="err-org-id"></span>
+            </div>
+        </div>
+
+        <!-- 5. Tenant ID -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Tenant ID</label>
+                <span class="field-help">BM → Admin → Global Preferences → Salesforce Commerce API Settings → Tenant ID (format: &lt;realm&gt;_&lt;instance&gt;). </span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="tenant-id">
+                <span class="field-hint-derived" id="hint-tenant-id" style="display:none">⚡ Auto-derived from hostname — edit if needed</span>
+                <span class="field-error" id="err-tenant-id"></span>
+            </div>
+        </div>
+
+        <!-- 6. Code Version -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Active Code Version</label>
+                <span class="field-help">BM → Admin → Site Development → Code Deployment. Use the name of the active code version (no spaces).</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="code-version">
+                <span class="hint">e.g. version1 &nbsp;(no spaces)</span>
+                <span class="field-error" id="err-code-version"></span>
+            </div>
+        </div>
+
+        <!-- 7. Site ID -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Site ID</label>
+                <span class="field-help">BM → Admin → Manage Sites → copy the ID column value (e.g. MarketStreet). Case-sensitive.</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="site-id">
+                <span class="field-error" id="err-site-id"></span>
+            </div>
+        </div>
+
+        <!-- 8. Content Library -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Shared Content Library</label>
+                <span class="field-help">BM → Content → Libraries. Usually named after your brand or project. 
+                </span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="content-library">
+                <span class="field-hint-derived" id="hint-content-library" style="display:none">⚡ Auto-derived from Site ID — edit if needed</span>
+                <span class="field-error" id="err-content-library"></span>
+            </div>
+        </div>
+
+        <!-- 9. BM Access Key -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Business Manager Access Key</label>
+                <span class="field-help">BM → top-right user menu → Manage Access Keys. Generate a key for "Agent" or "UX Studio / WebDAV / Code deployment".</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="bm-access-key">
+                <span class="field-error" id="err-bm-access-key"></span>
+            </div>
+        </div>
+
+        <!-- 10. CSV Credentials -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>CSV Credentials</label>
+                <span class="field-help">BM → Admin → Storefronts → Your Storefront → API Client → Download CSV. Paste the entire 3-line file here (header + Account Manager row + SLAS row).</span>
+            </div>
+            <div class="form-input-col">
+                <textarea id="csv-input" spellcheck="false"></textarea>
+                <span class="hint">Paste the 3-line CSV block — header + Account Manager row + SLAS row</span>
+                <span class="field-error" id="err-csv-input"></span>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+<!-- Group 2: MRT Admin Tool -->
+<div class="group-card">
+    <div class="group-title mrt-group">
+        <span class="group-icon">🚀</span>
+        Things to get from MRT Admin Tool
+    </div>
+    <div class="form-grid">
+
+        <!-- MRT Project -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>MRT Project Name</label>
+                <span class="field-help">MRT Admin tool → your project name (e.g. MyStorefront). Used as the MRT_PROJECT value in .env.</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="mrt-project">
+                <span class="field-error" id="err-mrt-project"></span>
+            </div>
+        </div>
+
+        <!-- MRT Target -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>MRT Environment Name</label>
+                <span class="field-help">MRT Admin tool → Project → Environment name (the slug, e.g. mystoref-b7c9e2f1). Used as MRT_TARGET in .env.</span>
+            </div>
+            <div class="form-input-col">
+                <input type="text" id="mrt-target">
+                <span class="field-error" id="err-mrt-target"></span>
+            </div>
+        </div>
+
+        <!-- Locales -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Supported Locales <span class="badge badge-env">.env</span></label>
+                <span class="field-help">Select all locales your storefront supports. The first selected locale becomes the defaultLocale. en-US is always required.</span>
+            </div>
+            <div class="form-input-col">
+                <div class="chip-group" id="locale-chips">
+                    <span class="chip selected" data-value="en-US" data-currency="USD" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> en-US</span>
+                    <span class="chip" data-value="en-GB" data-currency="GBP" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> en-GB</span>
+                    <span class="chip" data-value="fr-FR" data-currency="EUR" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> fr-FR</span>
+                    <span class="chip" data-value="de-DE" data-currency="EUR" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> de-DE</span>
+                    <span class="chip" data-value="it-IT" data-currency="EUR" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> it-IT</span>
+                    <span class="chip" data-value="es-ES" data-currency="EUR" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> es-ES</span>
+                    <span class="chip" data-value="ja-JP" data-currency="JPY" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> ja-JP</span>
+                    <span class="chip" data-value="zh-CN" data-currency="CNY" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> zh-CN</span>
+                    <span class="chip" data-value="ko-KR" data-currency="KRW" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> ko-KR</span>
+                    <span class="chip" data-value="pt-BR" data-currency="BRL" onclick="toggleChip(this,'locale-chips')"><span class="chip-check">✓</span> pt-BR</span>
+                </div>
+                <span class="hint">Click to select/deselect. First selected = defaultLocale. en-US is always pre-selected.</span>
+            </div>
+        </div>
+
+        <!-- Currencies -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Supported Currencies <span class="badge badge-env">.env</span></label>
+                <span class="field-help">Select all currencies your storefront supports. The currency of the first selected locale becomes the default. Can be adjusted independently of locale.</span>
+            </div>
+            <div class="form-input-col">
+                <div class="chip-group" id="currency-chips">
+                    <span class="chip selected" data-value="USD" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> USD</span>
+                    <span class="chip" data-value="GBP" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> GBP</span>
+                    <span class="chip" data-value="EUR" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> EUR</span>
+                    <span class="chip" data-value="JPY" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> JPY</span>
+                    <span class="chip" data-value="CNY" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> CNY</span>
+                    <span class="chip" data-value="KRW" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> KRW</span>
+                    <span class="chip" data-value="BRL" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> BRL</span>
+                    <span class="chip" data-value="CAD" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> CAD</span>
+                    <span class="chip" data-value="AUD" onclick="toggleChip(this,'currency-chips')"><span class="chip-check">✓</span> AUD</span>
+                </div>
+                <span class="hint">Click to select/deselect.</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Group 3: Hybrid Proxy (optional) -->
+<div class="group-card hybrid-group">
+    <div class="toggle-row">
+        <label class="toggle-switch">
+            <input type="checkbox" id="hybrid-enabled" onchange="toggleHybrid()">
+            <span class="toggle-track"></span>
+        </label>
+        <span class="toggle-label">🔀 Hybrid Proxy — local dev only &nbsp;<small style="color:#888;font-weight:400;">(optional — adds hybrid lines to .env)</small></span>
+    </div>
+
+    <div class="form-grid hybrid-fields" id="hybrid-fields">
+
+        <!-- Legacy SFRA routes -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Legacy SFRA Routes <span class="badge badge-env">.env</span></label>
+                <span class="field-help">Paths that stay on your existing SFRA storefront (not handled by Storefront Next). These become the PUBLIC__app__hybrid__legacyRoutes array.</span>
+            </div>
+            <div class="form-input-col">
+                <div class="chip-group has-selection" id="legacy-route-chips">
+                    <span class="chip selected" data-value="/cart"            onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /cart</span>
+                    <span class="chip selected" data-value="/checkout"        onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /checkout</span>
+                    <span class="chip selected" data-value="/checkout/:confirmationId" onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /checkout/:confirmationId</span>
+                    <span class="chip" data-value="/wishlist"    onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /wishlist</span>
+                    <span class="chip" data-value="/account"    onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /account</span>
+                    <span class="chip" data-value="/order"      onclick="toggleChip(this,'legacy-route-chips')"><span class="chip-check">✓</span> /order</span>
+                </div>
+                <span class="hint">Selected routes are kept on SFRA. Deselect to move a route to Storefront Next.</span>
+            </div>
+        </div>
+
+        <!-- SFNext routing rule paths -->
+        <div class="form-group">
+            <div class="form-label-col">
+                <label>Storefront Next Route Patterns <span class="badge badge-env">.env</span></label>
+                <span class="field-help">Paths served by Storefront Next — builds the HYBRID_ROUTING_RULES expression. B</span>
+            </div>
+            <div class="form-input-col">
+                <div class="chip-group has-selection" id="sfnext-route-chips">
+                    <span class="chip selected" data-value="home"     onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> home (/)</span>
+                    <span class="chip selected" data-value="product"  onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /product.*</span>
+                    <span class="chip selected" data-value="category" onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /category.*</span>
+                    <span class="chip selected" data-value="search"   onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /search.*</span>
+                    <span class="chip selected" data-value="account"  onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /account.*</span>
+                    <span class="chip selected" data-value="login"    onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /login.*</span>
+                    <span class="chip selected" data-value="logout"   onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /logout.*</span>
+                    <span class="chip selected" data-value="resource" onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /resource/.*</span>
+                    <span class="chip selected" data-value="action"   onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> /action/.*</span>
+                    <span class="chip selected" data-value="data"     onclick="toggleChip(this,'sfnext-route-chips')"><span class="chip-check">✓</span> *.data.*</span>
+                </div>
+                <span class="hint">Selected patterns are routed to Storefront Next. Base path auto-built from Site ID + default locale.</span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- ═══════════════════ OUTPUTS ═══════════════════ -->
+<div class="output-section">
+
+    <div class="section-card" style="padding:0;">
+        <div style="padding:14px 16px 10px;">
+            <div class="file-header">
+                <span class="file-title">.env file &nbsp;<small style="font-weight:400;color:#888;">(SLAS credentials)</small></span>
+                <button class="copy-btn" onclick="copyPre('out-env', this)">Copy Block</button>
+            </div>
+        </div>
+        <pre id="out-env"></pre>
+    </div>
+
+    <div class="section-card" style="padding:0;">
+        <div style="padding:14px 16px 10px;">
+            <div class="file-header">
+                <span class="file-title">dw.json &nbsp;<small style="font-weight:400;color:#888;">(root — Account Manager credentials)</small></span>
+                <button class="copy-btn" onclick="copyPre('out-dw-root', this)">Copy Block</button>
+            </div>
+        </div>
+        <pre id="out-dw-root"></pre>
+    </div>
+
+    <div class="section-card" style="padding:0;">
+        <div style="padding:14px 16px 10px;">
+            <div class="file-header">
+                <span class="file-title">dw.json &nbsp;<small style="font-weight:400;color:#888;">(cartridges folder)</small></span>
+                <button class="copy-btn" onclick="copyPre('out-dw-cart', this)">Copy Block</button>
+            </div>
+        </div>
+        <pre id="out-dw-cart"></pre>
+    </div>
+
+    <div class="section-card" style="padding:0;">
+        <div style="padding:14px 16px 10px;">
+            <div class="file-header">
+                <span class="file-title">
+                    OCAPI Data Settings
+                    &nbsp;<small style="font-weight:400;color:#888;">(Account Manager client_id)</small>
+                </span>
+                <button class="copy-btn" onclick="copyOcapiClients(this)">Copy[] Client block (red rectangle)</button>
+            </div>
+            <div style="font-size:12px;color:#888;margin-top:4px;">
+                BM → Admin → Open Commerce API Settings → <strong>Data</strong> → Context: <strong>Global</strong>.
+                Set Type to <strong>Data</strong>, paste this JSON. Grants your Account Manager API client full OCAPI Data access.
+            </div>
+        </div>
+        <pre id="out-ocapi"><span id="out-ocapi-prefix"></span><span class="ocapi-highlight" id="out-ocapi-clients"></span><span id="out-ocapi-suffix"></span></pre>
+    </div>
+
+    <h2>Parsed Credentials</h2>
+    <div class="section-card">
+        <div class="cred-row">
+            <span class="cred-label">Account Manager Client ID:</span>
+            <div class="cred-value-wrap">
+                <span class="value-pill hl-yellow" id="out-am-client-id">—</span>
+                <button class="copy-btn" onclick="copySpan('out-am-client-id', this)">Copy</button>
+            </div>
+        </div>
+        <div class="cred-row">
+            <span class="cred-label">Account Manager Secret:</span>
+            <div class="cred-value-wrap">
+                <span class="value-pill hl-green" id="out-am-secret">—</span>
+                <button class="copy-btn" onclick="copySpan('out-am-secret', this)">Copy</button>
+            </div>
+        </div>
+        <div class="cred-row">
+            <span class="cred-label">SLAS Client ID:</span>
+            <div class="cred-value-wrap">
+                <span class="value-pill hl-cyan" id="out-slas-client-id">—</span>
+                <button class="copy-btn" onclick="copySpan('out-slas-client-id', this)">Copy</button>
+            </div>
+        </div>
+        <div class="cred-row">
+            <span class="cred-label">SLAS Secret:</span>
+            <div class="cred-value-wrap">
+                <span class="value-pill hl-magenta" id="out-slas-secret">—</span>
+                <button class="copy-btn" onclick="copySpan('out-slas-secret', this)">Copy</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<script>
+    // ── Default / sample values ───────────────────────────────
+    const DEFAULTS = {
+        'csv-input':       '"Credential Type","ClientId:Secret"\n"Account Manager credentials","a1b2c3d4-0000-4abc-9xyz-sample000001:b9c8d7e6-0000-4def-8uvw-sample000002"\n"SLAS credentials","c3d4e5f6-0000-4ghi-7rst-sample000003:SampleSLASSecret_xYz123-abcDEFghiJKL456"',
+        'email':           'developer@mycompany.com',
+        'code-version':    'version2',
+        'mrt-project':     'MyStorefront',
+        'mrt-target':      'mystoref-b7c9e2f1',
+        'short-code':      'kx3nm91p',
+        'org-id':          'f_ecom_abcd_001',
+        'hostname':        'abcd-001.dx.commercecloud.salesforce.com',
+        'tenant-id':       'abcd_01',
+        'content-library': 'MyStorefront',
+        'bm-access-key':   'aB3$xY7#mK9!pQ2@sampleKey',
+        'site-id':         'MyStorefront'
+    };
+
+    // ── CSV parser ────────────────────────────────────────────
+    function parseCSV(raw) {
+        const result = { amClientId: '', amSecret: '', slasClientId: '', slasSecret: '' };
+        if (!raw.trim()) return result;
+        for (const line of raw.trim().split('\n')) {
+            const m = line.match(/"([^"]+)"\s*,\s*"([^"]+)"/);
+            if (!m) continue;
+            const type  = m[1].trim().toLowerCase();
+            const creds = m[2].trim();
+            const sep   = creds.indexOf(':');
+            if (sep === -1) continue;
+            const clientId = creds.substring(0, sep).trim();
+            const secret   = creds.substring(sep + 1).trim();
+            if (type.includes('account manager')) { result.amClientId = clientId; result.amSecret   = secret; }
+            else if (type.includes('slas'))       { result.slasClientId = clientId; result.slasSecret = secret; }
+        }
+        return result;
+    }
+
+    // ── Helpers ───────────────────────────────────────────────
+    function val(id) {
+        const el = document.getElementById(id);
+        return (el.value.trim() || el.placeholder || '').trim();
+    }
+    function setText(id, text) { document.getElementById(id).textContent = text || '—'; }
+    function setPre(id, text)  { document.getElementById(id).textContent = text; }
+    function normaliseVersion(v) { return v.replace(/\s+/g, ''); }
+
+    // ── Chip multiselect ──────────────────────────────────────
+    function toggleChip(chip, groupId) {
+        // en-US locale chip is always required
+        const isLocaleGroup = groupId === 'locale-chips';
+        if (isLocaleGroup && chip.dataset.value === 'en-US' && chip.classList.contains('selected')) return;
+        chip.classList.toggle('selected');
+        document.getElementById(groupId).classList.toggle(
+            'has-selection',
+            document.querySelectorAll(`#${groupId} .chip.selected`).length > 0
+        );
+        regenerate();
+    }
+
+    function selectedChips(groupId) {
+        return [...document.querySelectorAll(`#${groupId} .chip.selected`)].map(c => c.dataset.value);
+    }
+
+    // currency associated with a locale chip
+    function localeCurrency(localeValue) {
+        const chip = document.querySelector(`#locale-chips .chip[data-value="${localeValue}"]`);
+        return chip ? chip.dataset.currency : 'USD';
+    }
+
+    // ── Validation rules ──────────────────────────────────────
+    const VALIDATORS = {
+        'hostname': v => {
+            if (/^https?:\/\//i.test(v)) return 'Remove the https:// prefix — hostname only';
+            if (v.endsWith('/'))          return 'Remove the trailing slash';
+            if (v.includes('/'))          return 'Should be a bare hostname with no path (e.g. zzpe-091.dx.commercecloud.salesforce.com)';
+            if (!/\.[a-z]{2,}$/i.test(v)) return 'Doesn\'t look like a valid hostname';
+            return null;
+        },
+        'email': v => {
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return 'Enter a valid email address';
+            return null;
+        },
+        'short-code': v => {
+            if (/\s/.test(v))              return 'No spaces allowed';
+            if (!/^[a-z0-9]{6,10}$/i.test(v)) return 'Should be 6–10 alphanumeric characters (e.g. kv7km78)';
+            return null;
+        },
+        'org-id': v => {
+            if (!/^f_ecom_[a-z0-9]+_[a-z0-9]+$/i.test(v)) return 'Format must be f_ecom_<realmId>_<instanceId> (e.g. f_ecom_zzpe_091)';
+            return null;
+        },
+        'tenant-id': v => {
+            if (!/^[a-z0-9]+_[a-z0-9]+$/i.test(v)) return 'Format must be <realmId>_<instanceId> (e.g. zzpe_91)';
+            return null;
+        },
+        'code-version': v => {
+            if (/\s/.test(v)) return 'No spaces allowed — use e.g. version1';
+            return null;
+        },
+        'site-id': v => {
+            if (/\s/.test(v)) return 'Site ID must have no spaces';
+            return null;
+        },
+        'content-library': v => {
+            if (/\s/.test(v)) return 'Library ID must have no spaces';
+            return null;
+        },
+        'mrt-project': v => {
+            if (/\s/.test(v)) return 'Project name must have no spaces';
+            return null;
+        },
+        'mrt-target': v => {
+            if (/\s/.test(v))           return 'Environment name must have no spaces';
+            if (/[A-Z]/.test(v))        return 'Environment slug should be all lowercase';
+            return null;
+        },
+        'csv-input': v => {
+            const lines = v.trim().split('\n').filter(l => l.trim());
+            if (lines.length < 3)       return 'Paste all 3 lines: header + Account Manager row + SLAS row';
+            const hasAM   = lines.some(l => /account manager/i.test(l));
+            const hasSLAS = lines.some(l => /slas/i.test(l));
+            if (!hasAM)   return 'Missing "Account Manager credentials" row';
+            if (!hasSLAS) return 'Missing "SLAS credentials" row';
+            return null;
+        },
+        'bm-access-key': v => {
+            if (v.length < 10) return 'Access key looks too short — check you copied it fully';
+            return null;
+        },
+    };
+
+    function updateFieldState(el) {
+        const v = el.value.trim();
+        if (!v) {
+            // empty — clear all states
+            el.classList.remove('is-real', 'is-error');
+            setError(el.id, null);
+            return;
+        }
+        const validate = VALIDATORS[el.id];
+        const errMsg   = validate ? validate(v) : null;
+        el.classList.toggle('is-error', !!errMsg);
+        el.classList.toggle('is-real',  !errMsg);
+        setError(el.id, errMsg);
+    }
+
+    function setError(id, msg) {
+        const span = document.getElementById('err-' + id);
+        if (!span) return;
+        span.textContent = msg ? '⚠ ' + msg : '';
+        span.classList.toggle('visible', !!msg);
+    }
+
+    // ── Auto-derive Org ID + Tenant ID from hostname ──────────
+    // Track what was last auto-filled so we don't overwrite manual edits
+    let lastDerivedOrgId    = '';
+    let lastDerivedTenantId = '';
+
+    function deriveFromHostname(hostname) {
+        // e.g. zzpe-091.dx.commercecloud.salesforce.com → realm=zzpe, instance=091
+        const m = hostname.match(/^([a-z0-9]+)-([0-9]+)\./i);
+        if (!m) return null;
+        const realm    = m[1].toLowerCase();
+        const instance = m[2];                        // e.g. "091" — keep as-is
+        return {
+            orgId:    `f_ecom_${realm}_${instance}`,  // f_ecom_zzpe_091
+            tenantId: `${realm}_${instance}`           // zzpe_091
+        };
+    }
+
+    function applyDerivedFields(hostname) {
+        const derived = deriveFromHostname(hostname);
+        const orgEl    = document.getElementById('org-id');
+        const tenantEl = document.getElementById('tenant-id');
+
+        if (!derived) {
+            // Can't derive — clear derived state if we previously set it
+            ['org-id', 'tenant-id'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el.classList.contains('is-derived')) {
+                    el.value = '';
+                    el.classList.remove('is-derived');
+                    updateFieldState(el);
+                }
+                document.getElementById('hint-' + id).style.display = 'none';
+            });
+            lastDerivedOrgId = lastDerivedTenantId = '';
+            return;
+        }
+
+        // Only fill if empty OR still showing the previously derived value
+        if (!orgEl.value || orgEl.value === lastDerivedOrgId) {
+            orgEl.value = derived.orgId;
+            orgEl.classList.remove('is-real', 'is-error');
+            orgEl.classList.add('is-derived');
+            setError('org-id', null);
+            document.getElementById('hint-org-id').style.display = 'block';
+        }
+        if (!tenantEl.value || tenantEl.value === lastDerivedTenantId) {
+            tenantEl.value = derived.tenantId;
+            tenantEl.classList.remove('is-real', 'is-error');
+            tenantEl.classList.add('is-derived');
+            setError('tenant-id', null);
+            document.getElementById('hint-tenant-id').style.display = 'block';
+        }
+
+        lastDerivedOrgId    = derived.orgId;
+        lastDerivedTenantId = derived.tenantId;
+        regenerate();
+        saveToStorage();
+    }
+
+    // When user manually edits org-id / tenant-id, drop the derived style
+    ['org-id', 'tenant-id'].forEach(id => {
+        document.getElementById(id).addEventListener('input', function() {
+            this.classList.remove('is-derived');
+            document.getElementById('hint-' + id).style.display = 'none';
+            updateFieldState(this);
+            regenerate();
+            saveToStorage();
+        });
+    });
+
+    // ── Auto-derive Content Library from Site ID ──────────────
+    let lastDerivedContentLib = '';
+
+    function applyDerivedContentLib(siteId) {
+        const libEl = document.getElementById('content-library');
+        if (!siteId) {
+            if (libEl.classList.contains('is-derived')) {
+                libEl.value = '';
+                libEl.classList.remove('is-derived');
+                updateFieldState(libEl);
+                document.getElementById('hint-content-library').style.display = 'none';
+            }
+            lastDerivedContentLib = '';
+            return;
+        }
+        if (!libEl.value || libEl.value === lastDerivedContentLib) {
+            libEl.value = siteId;
+            libEl.classList.remove('is-real', 'is-error');
+            libEl.classList.add('is-derived');
+            setError('content-library', null);
+            document.getElementById('hint-content-library').style.display = 'block';
+        }
+        lastDerivedContentLib = siteId;
+        regenerate();
+        saveToStorage();
+    }
+
+    // When user manually edits content-library, drop the derived style
+    document.getElementById('content-library').addEventListener('input', function() {
+        this.classList.remove('is-derived');
+        document.getElementById('hint-content-library').style.display = 'none';
+        updateFieldState(this);
+        regenerate();
+        saveToStorage();
+    });
+
+    // ── Hybrid toggle ─────────────────────────────────────────
+    function toggleHybrid() {
+        const enabled = document.getElementById('hybrid-enabled').checked;
+        document.getElementById('hybrid-fields').classList.toggle('visible', enabled);
+        regenerate();
+        saveToStorage();
+    }
+
+    // ── Main regenerate ───────────────────────────────────────
+    function regenerate() {
+        const creds   = parseCSV(val('csv-input'));
+        const email   = val('email');
+        const version = normaliseVersion(val('code-version'));
+        const project = val('mrt-project');
+        const target  = val('mrt-target');
+        const short   = val('short-code');
+        const org     = val('org-id');
+        const host    = val('hostname');
+        const tenant  = val('tenant-id');
+        const lib     = val('content-library');
+        const bmKey   = val('bm-access-key');
+        const site    = val('site-id');
+
+        setText('out-am-client-id',   creds.amClientId);
+        setText('out-am-secret',      creds.amSecret);
+        setText('out-slas-client-id', creds.slasClientId);
+        setText('out-slas-secret',    creds.slasSecret);
+
+        // Build locale/currency lines
+        const selLocales    = selectedChips('locale-chips');
+        const selCurrencies = selectedChips('currency-chips');
+        const defaultLocale   = selLocales[0] || 'en-US';
+        const defaultCurrency = localeCurrency(defaultLocale);
+
+        const multiLocale = selLocales.length > 1 || selCurrencies.length > 1;
+
+        let sitesLine, i18nLines = '';
+
+        if (multiLocale) {
+            const supportedLocales = selLocales
+                .map(l => `    {"id": "${l}", "preferredCurrency": "${localeCurrency(l)}"}`)
+                .join(',\n');
+            const supportedCurrencies = selCurrencies.map(c => `"${c}"`).join(', ');
+            sitesLine =
+`PUBLIC__app__commerce__sites='[
+  {
+    "cookies": {"domain": null},
+    "id": "${site}",
+    "defaultLocale": "${defaultLocale}",
+    "defaultCurrency": "${defaultCurrency}",
+    "supportedLocales": [
+${supportedLocales}
+    ],
+    "supportedCurrencies": [${supportedCurrencies}]
+  }
+]'`;
+            const lngs = selLocales.map(l => `"${l}"`).join(', ');
+            i18nLines =
+`PUBLIC__app__i18n__supportedLngs='[${lngs}]'
+PUBLIC__app__i18n__fallbackLng="${defaultLocale}"`;
+        } else {
+            sitesLine = `PUBLIC__app__commerce__sites=[{"id":"${site}","defaultLocale":"${defaultLocale}","defaultCurrency":"${defaultCurrency}","supportedLocales":[{"id":"${defaultLocale}","preferredCurrency":"${defaultCurrency}"}],"supportedCurrencies":["${defaultCurrency}"]}]`;
+        }
+
+        const envLines = [
+`MRT_PROJECT=${project}`,
+`MRT_TARGET=${target}`,
+`PUBLIC__app__commerce__api__clientId=${creds.slasClientId}`,
+`COMMERCE_API_SLAS_SECRET=${creds.slasSecret}`,
+`PUBLIC__app__commerce__api__organizationId=${org}`,
+`PUBLIC__app__commerce__api__shortCode=${short}`,
+`PUBLIC__app__commerce__api__privateKeyEnabled=true`,
+`PUBLIC__app__defaultSiteId=${site}`,
+sitesLine,
+        ];
+        if (i18nLines) envLines.push(i18nLines);
+
+        // ── Hybrid proxy block (optional) ────────────────────
+        if (document.getElementById('hybrid-enabled').checked) {
+            const legacyRoutes  = selectedChips('legacy-route-chips');
+            const sfnextRoutes  = selectedChips('sfnext-route-chips');
+            const basePath      = `/${site.toLowerCase()}/${defaultLocale}`;
+
+            const legacyJson = JSON.stringify(legacyRoutes);
+
+            // Build routing rule matches
+            const routePatterns = sfnextRoutes.map(r => {
+                if (r === 'home')     return [`^${basePath}$`, `^${basePath}/$`];
+                if (r === 'resource') return [`^/resource/.*`];
+                if (r === 'action')   return [`^/action/.*`];
+                if (r === 'data')     return [`.*\\.data.*`];
+                return [`^${basePath}/${r}`];
+            }).flat();
+
+            const routingRules = routePatterns
+                .map(p => `http.request.uri.path matches "${p}"`)
+                .join(' or ');
+
+            envLines.push(
+`\n# Hybrid proxy — local dev only
+HYBRID_PROXY_ENABLED=true
+SFCC_ORIGIN=https://${host}
+HYBRID_PROXY_LOCALE=${defaultLocale}
+
+# Hybrid app config
+PUBLIC__app__hybrid__enabled=true
+PUBLIC__app__hybrid__legacyRoutes=${legacyJson}
+
+# Routing rules — defines which paths stay on Storefront Next
+HYBRID_ROUTING_RULES=(${routingRules})`
+            );
+        }
+
+        setPre('out-env', envLines.join('\n'));
+
+        setPre('out-dw-root', JSON.stringify({
+            hostname:        host,
+            username:        email,
+            version:         version,
+            password:        bmKey,
+            "tenant-id":     tenant,
+            shortCode:       short,
+            siteId:          site,
+            contentLibrary:  lib,
+            "client-id":     creds.amClientId,
+            "client-secret": creds.amSecret
+        }, null, 2));
+
+        setPre('out-dw-cart',
+`{
+  "hostname": ${JSON.stringify(host)},
+  "username": ${JSON.stringify(email)},
+  "password": ${JSON.stringify(bmKey)},
+  "code-version": ${JSON.stringify(version)}
+}`);
+
+        const ocapiClients =
+`{
+    "client_id" : ${JSON.stringify(creds.amClientId)},
+    "resources" : [ {
+      "methods" : [ "get", "post", "put", "patch", "delete" ],
+      "read_attributes" : "(**)",
+      "resource_id" : "/**",
+      "write_attributes" : "(**)"
+    } ]
+  },`;
+        document.getElementById('out-ocapi-prefix').textContent  =
+`{
+  "_v" : "15.4",
+  "clients" : [
+`;
+        document.getElementById('out-ocapi-clients').textContent = ocapiClients;
+        document.getElementById('out-ocapi-suffix').textContent  =
+`
+{
+    "client_id" : "d4c97f32-66f2-49e9-8474-f8ffe74f097f",
+    "resources" : [ {
+      "methods" : [ "get", "post", "put", "patch", "delete" ],
+      "read_attributes" : "(**)",
+      "resource_id" : "/**",
+      "write_attributes" : "(**)"
+    } ]
+  } ]
+}`;
+    }
+
+    // ── Copy helpers ──────────────────────────────────────────
+    function flash(btn) {
+        const orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = orig; btn.classList.remove('copied'); }, 1500);
+    }
+    function copySpan(id, btn) {
+        const text = document.getElementById(id).textContent;
+        if (text === '—') return;
+        navigator.clipboard.writeText(text).then(() => flash(btn));
+    }
+    function copyPre(id, btn) {
+        const text = document.getElementById(id).textContent;
+        navigator.clipboard.writeText(text).then(() => flash(btn));
+    }
+    function copyOcapiClients(btn) {
+        const text = document.getElementById('out-ocapi-clients').textContent;
+        navigator.clipboard.writeText(text).then(() => flash(btn));
+    }
+
+    // ── Export to Project ─────────────────────────────────────
+    function openDeployModal() {
+        const supported = ('showDirectoryPicker' in window);
+        document.getElementById('modal-compat-warn').style.display = supported ? 'none' : 'block';
+        document.getElementById('btn-deploy-confirm').disabled = !supported;
+        document.getElementById('deploy-modal').classList.add('open');
+    }
+
+    function closeDeployModal() {
+        document.getElementById('deploy-modal').classList.remove('open');
+    }
+
+    // Close on backdrop click
+    document.getElementById('deploy-modal').addEventListener('click', function(e) {
+        if (e.target === this) closeDeployModal();
+    });
+
+    async function writeFile(dirHandle, filename, content) {
+        let fileHandle;
+        let exists = false;
+        try {
+            fileHandle = await dirHandle.getFileHandle(filename);
+            exists = true;
+        } catch {
+            // file doesn't exist yet
+        }
+        if (exists) {
+            const ok = confirm(`"${filename}" already exists in this folder.\n\nOverwrite it?`);
+            if (!ok) return false;
+        }
+        fileHandle = await dirHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(content);
+        await writable.close();
+        return true;
+    }
+
+    async function runDeploy() {
+        closeDeployModal();
+        let rootDir;
+        try {
+            rootDir = await window.showDirectoryPicker({ mode: 'readwrite' });
+        } catch(e) {
+            if (e.name !== 'AbortError') showToast('✗ Could not open folder');
+            return;
+        }
+
+        const envText     = document.getElementById('out-env').textContent;
+        const dwRootText  = document.getElementById('out-dw-root').textContent;
+        const dwCartText  = document.getElementById('out-dw-cart').textContent;
+
+        const results = [];
+
+        // .env → project root
+        const wroteEnv = await writeFile(rootDir, '.env', envText);
+        results.push(wroteEnv === false ? '⏭ .env skipped' : '✓ .env written');
+
+        // dw.json → project root
+        const wroteDwRoot = await writeFile(rootDir, 'dw.json', dwRootText);
+        results.push(wroteDwRoot === false ? '⏭ dw.json (root) skipped' : '✓ dw.json (root) written');
+
+        // dw.json → cartridges/
+        let cartDir;
+        try {
+            cartDir = await rootDir.getDirectoryHandle('cartridges', { create: false });
+        } catch {
+            const create = confirm('"cartridges" folder not found in the selected root.\n\nCreate it?');
+            if (!create) {
+                results.push('⏭ dw.json (cartridges) skipped — folder not found');
+                showToast(results.join(' · '));
+                return;
+            }
+            cartDir = await rootDir.getDirectoryHandle('cartridges', { create: true });
+        }
+        const wroteDwCart = await writeFile(cartDir, 'dw.json', dwCartText);
+        results.push(wroteDwCart === false ? '⏭ dw.json (cartridges) skipped' : '✓ dw.json (cartridges) written');
+
+        showToast(results.join(' · '));
+    }
+
+    // ── Import / Export ───────────────────────────────────────
+    function showToast(msg) {
+        const t = document.getElementById('io-toast');
+        t.textContent = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    function collectConfig() {
+        const data = {};
+        Object.keys(DEFAULTS).forEach(id => {
+            data[id] = document.getElementById(id).value;
+        });
+        ['locale-chips','currency-chips','legacy-route-chips','sfnext-route-chips'].forEach(gid => {
+            data[gid] = selectedChips(gid);
+        });
+        data['hybrid-enabled'] = document.getElementById('hybrid-enabled').checked;
+        return data;
+    }
+
+    function exportConfig() {
+        const data = collectConfig();
+        const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'sfcc-config.json';
+        a.click();
+        URL.revokeObjectURL(a.href);
+        showToast('✓ Exported sfcc-config.json');
+    }
+
+    function applyConfig(data) {
+        Object.keys(DEFAULTS).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.value = data[id] || '';
+            updateFieldState(el);
+        });
+        ['locale-chips','currency-chips','legacy-route-chips','sfnext-route-chips'].forEach(gid => {
+            if (!Array.isArray(data[gid])) return;
+            document.querySelectorAll(`#${gid} .chip`).forEach(chip => {
+                chip.classList.toggle('selected', data[gid].includes(chip.dataset.value));
+            });
+            document.getElementById(gid).classList.toggle(
+                'has-selection',
+                document.querySelectorAll(`#${gid} .chip.selected`).length > 0
+            );
+        });
+        const hybridOn = !!data['hybrid-enabled'];
+        document.getElementById('hybrid-enabled').checked = hybridOn;
+        document.getElementById('hybrid-fields').classList.toggle('visible', hybridOn);
+        regenerate();
+        saveToStorage();
+    }
+
+    function importConfig(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = e => {
+            try {
+                const data = JSON.parse(e.target.result);
+                applyConfig(data);
+                showToast('✓ Imported ' + file.name);
+            } catch {
+                showToast('✗ Invalid JSON file');
+            }
+            event.target.value = '';
+        };
+        reader.readAsText(file);
+    }
+
+    function clearConfig() {
+        if (!confirm('Clear all entered values and reset to defaults?')) return;
+        localStorage.removeItem(LS_KEY);
+        Object.keys(DEFAULTS).forEach(id => {
+            const el = document.getElementById(id);
+            if (!el) return;
+            el.value = '';
+            updateFieldState(el);
+        });
+        // Reset chips to initial defaults
+        document.querySelectorAll('#locale-chips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'en-US'));
+        document.querySelectorAll('#currency-chips .chip').forEach(c => c.classList.toggle('selected', c.dataset.value === 'USD'));
+        document.querySelectorAll('#legacy-route-chips .chip').forEach(c => c.classList.toggle('selected', ['cart','/cart','/checkout','/checkout/:confirmationId'].includes(c.dataset.value)));
+        document.querySelectorAll('#sfnext-route-chips .chip').forEach(c => c.classList.add('selected'));
+        document.getElementById('hybrid-enabled').checked = false;
+        document.getElementById('hybrid-fields').classList.remove('visible');
+        regenerate();
+        showToast('✓ All values cleared');
+    }
+
+    // ── Local storage ─────────────────────────────────────────
+    const LS_KEY = 'sfcc-config-generator-v1';
+
+    function saveToStorage() {
+        const data = {};
+        Object.keys(DEFAULTS).forEach(id => {
+            data[id] = document.getElementById(id).value;
+        });
+        // persist chip selections
+        ['locale-chips','currency-chips','legacy-route-chips','sfnext-route-chips'].forEach(gid => {
+            data[gid] = selectedChips(gid);
+        });
+        data['hybrid-enabled'] = document.getElementById('hybrid-enabled').checked;
+        localStorage.setItem(LS_KEY, JSON.stringify(data));
+    }
+
+    function loadFromStorage() {
+        try {
+            const raw = localStorage.getItem(LS_KEY);
+            return raw ? JSON.parse(raw) : null;
+        } catch(e) { return null; }
+    }
+
+    // ── Wire up inputs ────────────────────────────────────────
+    const inputIds = Object.keys(DEFAULTS);
+    const saved = loadFromStorage();
+
+    inputIds.forEach(id => {
+        const el = document.getElementById(id);
+        el.placeholder = DEFAULTS[id];
+        el.value = (saved && saved[id]) ? saved[id] : '';
+        updateFieldState(el);
+
+        if (id === 'hostname') {
+            el.addEventListener('input', () => {
+                updateFieldState(el);
+                applyDerivedFields(el.value.trim());
+                regenerate();
+                saveToStorage();
+            });
+            el.addEventListener('paste', () => setTimeout(() => {
+                updateFieldState(el);
+                applyDerivedFields(el.value.trim());
+                regenerate();
+                saveToStorage();
+            }, 0));
+        } else if (id === 'site-id') {
+            el.addEventListener('input', () => {
+                updateFieldState(el);
+                applyDerivedContentLib(el.value.trim());
+                regenerate();
+                saveToStorage();
+            });
+            el.addEventListener('paste', () => setTimeout(() => {
+                updateFieldState(el);
+                applyDerivedContentLib(el.value.trim());
+                regenerate();
+                saveToStorage();
+            }, 0));
+        } else if (id === 'org-id' || id === 'tenant-id' || id === 'content-library') {
+            // handled by their own manual-edit listeners
+        } else {
+            el.addEventListener('input', () => { updateFieldState(el); regenerate(); saveToStorage(); });
+            el.addEventListener('paste', () => setTimeout(() => { updateFieldState(el); regenerate(); saveToStorage(); }, 0));
+        }
+    });
+
+    // On load: if hostname was saved, re-derive but respect any manually saved org/tenant
+    if (saved && saved['hostname']) {
+        const derived = deriveFromHostname(saved['hostname']);
+        if (derived) {
+            lastDerivedOrgId    = derived.orgId;
+            lastDerivedTenantId = derived.tenantId;
+            // Only show derived style if the saved value matches what we'd derive
+            const orgEl    = document.getElementById('org-id');
+            const tenantEl = document.getElementById('tenant-id');
+            if (orgEl.value === derived.orgId) {
+                orgEl.classList.add('is-derived');
+                document.getElementById('hint-org-id').style.display = 'block';
+            }
+            if (tenantEl.value === derived.tenantId) {
+                tenantEl.classList.add('is-derived');
+                document.getElementById('hint-tenant-id').style.display = 'block';
+            }
+        }
+    } else if (!saved) {
+        // Fresh load with no saved data — try deriving from placeholder
+        const hostnameEl = document.getElementById('hostname');
+        if (!hostnameEl.value) applyDerivedFields(hostnameEl.placeholder);
+    }
+
+    // On load: restore derived style for content-library if it matches saved site-id
+    if (saved && saved['site-id']) {
+        const libEl = document.getElementById('content-library');
+        if (libEl.value === saved['site-id']) {
+            lastDerivedContentLib = saved['site-id'];
+            libEl.classList.add('is-derived');
+            document.getElementById('hint-content-library').style.display = 'block';
+        }
+    } else if (!saved) {
+        const siteEl = document.getElementById('site-id');
+        if (!siteEl.value) applyDerivedContentLib(siteEl.placeholder);
+    }
+
+    // Restore chip selections from localStorage
+    ['locale-chips','currency-chips','legacy-route-chips','sfnext-route-chips'].forEach(gid => {
+        if (saved && Array.isArray(saved[gid])) {
+            document.querySelectorAll(`#${gid} .chip`).forEach(chip => {
+                const on = saved[gid].includes(chip.dataset.value);
+                chip.classList.toggle('selected', on);
+            });
+            document.getElementById(gid).classList.toggle(
+                'has-selection',
+                document.querySelectorAll(`#${gid} .chip.selected`).length > 0
+            );
+        }
+    });
+
+    // Restore hybrid toggle
+    if (saved && saved['hybrid-enabled']) {
+        document.getElementById('hybrid-enabled').checked = true;
+        document.getElementById('hybrid-fields').classList.add('visible');
+    }
+
+    // Initial render
+    regenerate();
+</script>
+</body>
+</html>
