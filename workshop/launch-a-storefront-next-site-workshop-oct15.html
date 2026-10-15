@@ -296,6 +296,12 @@ volta install pnpm</pre>
 
       <img src="images/vibes-setup-checklist.png" alt="Agentforce Commerce Vibes setup checklist showing Commerce Org Connection ready, and B2C Commerce CLI, B2C Commerce Extension, and B2C Commerce Project steps" class="rounded-lg border border-gray-200 mb-4 w-full">
 
+      <ol start="8" class="space-y-3 text-sm">
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">8</span><span>Press <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">Cmd+,</code> or click the Manage cog in the bottom left corner and click <strong>Settings</strong>. Type <strong>"port"</strong> and then check the box <strong>"Remote: Auto Forward Ports"</strong>. Close the Settings window.</span></li>
+      </ol>
+
+      <img src="images/vibes-settings-auto-forward-ports.png" alt="Settings window searched for &quot;port&quot;, showing the Remote: Auto Forward Ports checkbox checked" class="rounded-lg border border-gray-200 mb-4 w-full">
+
       <h5 class="font-semibold text-path-vibes mt-6 mb-2">Launch a Terminal and Install Node.js / pnpm</h5>
       <ol class="space-y-3 text-sm">
         <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Run:</span></li>
@@ -660,24 +666,18 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
   <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 2: Update the Site Theme</h3>
 
   <p class="text-sm mb-3">Give the command:</p>
-  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">Update the Storefront Next theme colors in src/theme/tokens/core.css to use this brand identity:
---background: #fff200
---foreground: #1a0033
---primary: #ff0080
---muted-foreground: #6b21a8
---border: #1a0033</pre>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">Update the Storefront Next theme colors to match https://www.benefitcosmetics.com/en-us. Change the navigation text styles to match those on that website. Also change the market street logo to use the benefit logo.</pre>
 
-  <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Update the Site Logo</h3>
+  <h3 class="text-lg font-semibold text-sf-blue mt-8 mb-3">Task 3: Continue to prompt for futher changes</h3>
   <ol class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Go to <a href="https://logoipsum.com/" target="_blank" rel="noopener" class="text-sf-accent underline font-semibold">https://logoipsum.com/</a> and download a logo of your choice as an <strong>SVG</strong> (the download options include multiple formats — the import below assumes SVG). <strong>Horizontal logos will present better</strong> in the space reserved in the header.</span></li>
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Copy the downloaded logo file into your project's root folder.</span></li>
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Clarify any missing elements you want to change.</span></li>
   </ol>
 
-  <p class="text-sm mb-3">Give the command:</p>
-  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">update the logo of my site to use the svg file in the root of my project</pre>
+  <p class="text-sm mb-3">Example command:</p>
+  <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-6 overflow-x-auto">the navigation on my site is still using black and white but the benefit site is white and pink. Please update the header and navigation</pre>
 
-  <ol start="3" class="space-y-3 text-sm">
-    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">3</span><span>Navigate to the local server to see the updated site logo.</span></li>
+  <ol start="2" class="space-y-3 text-sm">
+    <li class="flex gap-3"><span class="bg-sf-blue text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Navigate to the local server to see the updated site logo.</span></li>
   </ol>
 
   <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-4 mb-6 text-sm">
