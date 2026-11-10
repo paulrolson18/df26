@@ -546,8 +546,7 @@ PUBLIC__app__features__shopperContext__enabled=false</pre>
 
     <div class="tab-content active p-6" data-tab="vibes">
       <ol class="space-y-3 text-sm">
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>Next to the <strong>Terminal</strong> tab is the <strong>Ports</strong> tab. Click this and add a mapping for the port that the server started on (i.e. <code class="bg-gray-100 px-1.5 py-0.5 rounded text-xs">5173</code>). This will then provide a forwarding address.</span></li>
-        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">2</span><span>Hover over this URL and click <strong>"follow link"</strong> to go to your site.</span></li>
+        <li class="flex gap-3"><span class="bg-path-vibes text-white w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0">1</span><span>You should see a message in the bottom right corner that says "Your application running on port 5173 is available." Click the <strong>"Open in Browser"</strong> button.</span></li>
       </ol>
 
       <p class="text-sm mb-3 mt-4">On your first request, the Agentforce Vibes environment is not allowed, so you'll see an error like this:</p>
@@ -556,6 +555,10 @@ To allow this host, add "e-71947ca2ce51465898094a3c2d890025--5173.pdx.002.sf.cod
 
       <p class="text-sm mb-3">We can ask AI to fix the error. In your <strong>Agentforce Commerce Vibes</strong> window, give the command:</p>
       <pre class="bg-gray-900 text-amber-300 rounded-lg p-4 text-sm mb-4 overflow-x-auto">add ".sf.code-builder.platform.salesforce.com" to `server.allowedHosts` in vite.config.ts</pre>
+
+      <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-3 text-sm mb-4">
+        <strong class="text-sf-blue">💡 Note:</strong> If you get a "Error (RATE_LIMITED)" message, change the model from Opus to Sonnet.
+      </div>
 
       <div class="bg-blue-50 border-l-4 border-sf-accent rounded-r-lg p-3 text-sm mb-4">
         <strong class="text-sf-blue">💡 Note:</strong> The server will hot reload the configuration, but this is not always reliable. If you continue to get an error after refreshing the page, manually restart the server.
